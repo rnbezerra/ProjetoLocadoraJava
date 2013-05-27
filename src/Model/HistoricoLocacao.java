@@ -2,9 +2,11 @@ package Model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
-public class HistoricoLocacao {
+public class HistoricoLocacao{
 
 	private String codigoDVD;
 	private Date dataLocacao;

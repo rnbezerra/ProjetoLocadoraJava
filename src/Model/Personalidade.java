@@ -17,12 +17,11 @@ public class Personalidade {
 	protected ArrayList<String> filmes = new ArrayList<String>();
 	
 	public Personalidade() {
-		// TODO Auto-generated constructor stub
+		this.filmes = new ArrayList<String>();
 	}
 		
 	public Personalidade(String codigo, String nome, Sexo sexo,
 			ArrayList<String> filmes) {
-		super();
 		this.codigo = codigo;
 		this.nome = nome;
 		this.sexo = sexo;

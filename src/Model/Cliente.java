@@ -14,7 +14,7 @@ public class Cliente {
 	private String endereco;
 	private String cep;
 	private String telefone;
-	private ArrayList<HistoricoLocacao> historicoLocacao;
+	private HistoricoLocacaoCollection historicoLocacao;
 	
 	
 	public Cliente() {
@@ -32,7 +32,7 @@ public class Cliente {
 	
 	public Cliente(String nome, String codigo, String cpf, String endereco,
 			String cep, String telefone,
-			ArrayList<HistoricoLocacao> historicoLocacao) {
+			HistoricoLocacaoCollection historicoLocacao) {
 		this.nome = nome;
 		this.codigo = codigo;
 		this.cpf = cpf;
@@ -90,11 +90,11 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	public ArrayList<HistoricoLocacao> getHistoricoLocacao() {
+	public HistoricoLocacaoCollection getHistoricoLocacao() {
 		return historicoLocacao;
 	}
 
-	public void setHistoricoLocacao(ArrayList<HistoricoLocacao> historicoLocacao) {
+	public void setHistoricoLocacao(HistoricoLocacaoCollection historicoLocacao) {
 		this.historicoLocacao = historicoLocacao;
 	}
 

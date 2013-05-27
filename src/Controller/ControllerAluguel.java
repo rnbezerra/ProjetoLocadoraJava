@@ -1,8 +1,11 @@
-package Model;
+package Controller;
 
 import java.util.Date;
 
-public class Aluguel {
+import Model.Cliente;
+import Model.DVD;
+
+public class ControllerAluguel {
 
 	private Cliente codigoCliente;
 	private DVD dvd;

@@ -1,0 +1,120 @@
+Guerra dos Mundos
+002
+1
+Um devastador ataque alienígena à Terra faz com que...
+Ficção
+05
+21
+2005
+3
+filme
+lançamento
+#
+Sr. e Sra. Smith
+004
+1
+Dois assassinos de aluguel são casados, mas desconhecem...
+Aventura
+08, 12
+22
+2005
+2
+filme
+lançamento
+#
+Collateral
+001
+1
+Um assassino de aluguel chega a Los Angeles e sequestra um táxi...
+Suspense
+05
+20
+2004
+2
+filme
+acervo
+#
+O Terminal
+003
+1
+Impedido de entrar nos Estados Unidos devido a um golpe de estado...
+Drama
+02
+21
+2004
+3
+filme
+acervo
+#
+Doze Homens e Outro Segredo
+006
+1
+Danny Ocean e sua quadrilha precisam realizar um novo roubo para pagar...
+Aventura
+12, 15
+24
+2004
+2
+filme
+acervo
+#
+Noiva em Fuga
+007
+1
+Uma mulher do interior não consegue se casar...
+Comédia
+15, 17
+25
+1999
+1
+filme
+acervo
+#
+Uma linda mulher
+008
+1
+Uma bela garota de programa conhece por acaso um rapaz milionário...
+Romance
+15, 17
+25
+1990
+2
+filme
+acervo
+#
+Minority Report
+009
+4
+Em um futuro onde os crimes são previstos e evitados pela polícia...
+Ficção
+05
+21
+2002
+1
+filme
+acervo
+#
+Prenda-me se for capaz
+010
+4
+Adolescente se disfarçava das mais diversas profissões e ganha milhões...
+Policial
+18, 02
+21
+2002
+1
+filme
+acervo
+#
+O Aviador
+012
+1
+História do milionário Howard Hughes, apaixonado por aviões...
+Drama
+18
+26
+2004
+3
+filme
+acervo
+#

@@ -9,9 +9,8 @@ public class Artista extends Personalidade {
 	private Date dataNasc;
 	
 	public Artista() {
+		super();
 	}
-	
-	
 	
 	public Artista(String codigo, String nome, String nomeCompleto, Sexo sexo, Date dataNasc,
 			ArrayList<String> filmes) {
