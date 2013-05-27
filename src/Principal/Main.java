@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import Model.AluguelDvd;
+import Model.AluguelSerializable;
 import ProjectUtils.KeyValue;
 import ProjectUtils.KeyValueCollection;
 
@@ -20,12 +20,12 @@ public class Main {
 	public static void main(String[] args) {
 		testeParametros();
 		
-		AluguelDvd advd = new AluguelDvd("002100", "01245", "12/04/2013", 12.45);
+		AluguelSerializable advd = new AluguelSerializable("002100", "01245", "12/04/2013", 12.45);
 		testeSerializacao(advd);
 		testeDeserializacao();
 	}
 
-	private static void testeSerializacao(AluguelDvd advd) {
+	private static void testeSerializacao(AluguelSerializable advd) {
 		try{
 			FileOutputStream fileOutputStream = new FileOutputStream("aluguel.ser");
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -39,7 +39,7 @@ public class Main {
 	}
 
 	private static void testeDeserializacao() {
-		AluguelDvd aluguelDvd = new AluguelDvd();
+		AluguelSerializable aluguelDvd = new AluguelSerializable();
 		try {
 			
 			FileInputStream inputStream = new FileInputStream("aluguel.ser");
