@@ -2,17 +2,17 @@ package Model;
 
 import java.io.Serializable;
 
-public class AluguelDvd implements Serializable {
+public class AluguelSerializable implements Serializable {
 
 	private String codigoCliente;
 	private String codigoDVD;
 	private String dataAluguel;
 	private double valorPago;
 	
-	public AluguelDvd() {}
+	public AluguelSerializable() {}
 		
 	
-	public AluguelDvd(String codigoCliente, String codigoDVD,
+	public AluguelSerializable(String codigoCliente, String codigoDVD,
 			String dataAluguel, double valorPago) {
 		super();
 		this.codigoCliente = codigoCliente;
