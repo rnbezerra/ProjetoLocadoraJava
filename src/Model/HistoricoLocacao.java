@@ -44,7 +44,7 @@ public class HistoricoLocacao{
 	}
 
 	public String getDataLocacaoAsString() {
-		return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(this.dataLocacao);
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(this.dataLocacao);
 	}
 
 	public void setDataLocacao(Date dataLocacao) {
@@ -53,7 +53,7 @@ public class HistoricoLocacao{
 
 	public boolean setDataLocacao(String dataLocacao) {
 		try {
-			this.dataLocacao = new SimpleDateFormat("dd/MM/yyyy").parse(dataLocacao);
+			this.dataLocacao = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(dataLocacao);
 			return true;
 		} catch (ParseException e) {
 			return false;

@@ -5,8 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
 
 import Model.AluguelSerializable;
+import Model.Cliente;
+import Model.Filme;
 import ProjectUtils.KeyValue;
 import ProjectUtils.KeyValueCollection;
 
@@ -18,16 +21,18 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		testeParametros();
+//		testeParametros();
 		
 		AluguelSerializable advd = new AluguelSerializable("002100", "01245", "12/04/2013", 12.45);
 		testeSerializacao(advd);
-		testeDeserializacao();
+		testeDeserializacao(String.format("ALUGUEL\\ALUGUEL_%s_%s.ser", advd.getCodigoCliente(), advd.getCodigoDVD()));
 	}
 
 	private static void testeSerializacao(AluguelSerializable advd) {
 		try{
-			FileOutputStream fileOutputStream = new FileOutputStream("aluguel.ser");
+			String filename = String.format("ALUGUEL\\ALUGUEL_%s_%s.ser", advd.getCodigoCliente(), advd.getCodigoDVD());
+			System.out.println(filename);
+			FileOutputStream fileOutputStream = new FileOutputStream(filename);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			objectOutputStream.writeObject(advd);
 			objectOutputStream.close();
@@ -38,11 +43,11 @@ public class Main {
 		}
 	}
 
-	private static void testeDeserializacao() {
+	private static void testeDeserializacao(String filename) {
 		AluguelSerializable aluguelDvd = new AluguelSerializable();
 		try {
 			
-			FileInputStream inputStream = new FileInputStream("aluguel.ser");
+			FileInputStream inputStream = new FileInputStream(filename);
 			ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 //			aluguelDvd = (AluguelDvd) objectInputStream.readObject();
 			aluguelDvd = aluguelDvd.getClass().cast(objectInputStream.readObject());
@@ -64,7 +69,7 @@ public class Main {
 		System.out.println("Objeto carregado...");
 		System.out.println("Codigo Cliente: " + aluguelDvd.getCodigoCliente());
 		System.out.println("Codigo DVD: " + aluguelDvd.getCodigoDVD());
-		System.out.println("Data de Aluguel: " + aluguelDvd.getDataAluguel());
+		System.out.println("Data de Aluguel: " + aluguelDvd.getDataLocacao());
 		System.out.println("Valor Pago: R$" + aluguelDvd.getValorPago());
 		
 	}
@@ -81,3 +86,4 @@ public class Main {
 	}
 
 }
+

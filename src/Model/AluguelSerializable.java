@@ -1,23 +1,34 @@
 package Model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AluguelSerializable implements Serializable {
 
 	private String codigoCliente;
 	private String codigoDVD;
-	private String dataAluguel;
+	private String dataLocacao;
 	private double valorPago;
 	
 	public AluguelSerializable() {}
 		
-	
+
 	public AluguelSerializable(String codigoCliente, String codigoDVD,
-			String dataAluguel, double valorPago) {
+			String dataLocacao, double valorPago) {
 		super();
 		this.codigoCliente = codigoCliente;
 		this.codigoDVD = codigoDVD;
-		this.dataAluguel = dataAluguel;
+		this.dataLocacao = dataLocacao;
+		this.valorPago = valorPago;
+	}
+	
+	public AluguelSerializable(String codigoCliente, String codigoDVD,
+			Date dataLocacao, double valorPago) {
+		super();
+		this.codigoCliente = codigoCliente;
+		this.codigoDVD = codigoDVD;
+		this.setDataLocacao(dataLocacao);
 		this.valorPago = valorPago;
 	}
 
@@ -37,12 +48,16 @@ public class AluguelSerializable implements Serializable {
 		this.codigoDVD = codigoDVD;
 	}
 	
-	public String getDataAluguel() {
-		return dataAluguel;
+	public String getDataLocacao() {
+		return dataLocacao;
 	}
 	
-	public void setDataAluguel(String dataAluguel) {
-		this.dataAluguel = dataAluguel;
+	public void setDataLocacao(String dataAluguel) {
+		this.dataLocacao = dataAluguel;
+	}
+
+	public void setDataLocacao(Date ataLocacao) {
+		this.dataLocacao = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(this.dataLocacao);
 	}
 	
 	public double getValorPago() {
