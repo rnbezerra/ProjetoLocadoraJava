@@ -1,9 +1,7 @@
-package Model;
+package model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import Model.Personalidade.Sexo;
 
 public class Diretor extends Personalidade {
 

@@ -1,4 +1,4 @@
-package ProjectUtils;
+package projectutils;
 
 import java.util.ArrayList;
 

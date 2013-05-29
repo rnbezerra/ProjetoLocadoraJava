@@ -1,17 +1,15 @@
-package Principal;
+package principal;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Field;
+import projectutils.KeyValue;
+import projectutils.KeyValueCollection;
 
-import Model.AluguelSerializable;
-import Model.Cliente;
-import Model.Filme;
-import ProjectUtils.KeyValue;
-import ProjectUtils.KeyValueCollection;
+import model.AluguelSerializable;
+
 
 public class Main {
 	//Comentario Ramon Java Feelings

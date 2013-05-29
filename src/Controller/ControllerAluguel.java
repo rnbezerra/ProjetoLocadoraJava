@@ -1,13 +1,14 @@
-package Controller;
+package controller;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 
-import Model.AluguelSerializable;
-import Model.Cliente;
-import Model.DVD;
+import model.AluguelSerializable;
+import model.Cliente;
+import model.DVD;
+
 
 public class ControllerAluguel {
 
