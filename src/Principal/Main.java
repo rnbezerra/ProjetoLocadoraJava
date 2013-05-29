@@ -9,6 +9,7 @@ import projectUtils.KeyValue;
 import projectUtils.KeyValueCollection;
 
 import model.AluguelSerializable;
+import model.Cliente;
 
 
 public class Main {
@@ -21,9 +22,10 @@ public class Main {
 	public static void main(String[] args) {
 //		testeParametros();
 		
-		AluguelSerializable advd = new AluguelSerializable("002100", "01245", "12/04/2013", 12.45);
-		testeSerializacao(advd);
-		testeDeserializacao(String.format("ALUGUEL\\ALUGUEL_%s_%s.ser", advd.getCodigoCliente(), advd.getCodigoDVD()));
+//		AluguelSerializable advd = new AluguelSerializable("002100", "01245", "12/04/2013", 12.45);
+//		testeSerializacao(advd);
+//		testeDeserializacao(String.format("ALUGUEL\\ALUGUEL_%s_%s.ser", advd.getCodigoCliente(), advd.getCodigoDVD()));
+		
 	}
 
 	private static void testeSerializacao(AluguelSerializable advd) {

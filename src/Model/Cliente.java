@@ -17,7 +17,10 @@ public class Cliente {
 	
 	public Cliente() {
 	}
-		
+	
+	/*
+	 * Construtor
+	 * */
 	public Cliente(String nome, String codigo, String cpf, String endereco,
 			String cep, String telefone) {
 		this.nome = nome;
@@ -96,15 +99,22 @@ public class Cliente {
 		this.historicoLocacao = historicoLocacao;
 	}
 
+	/** Método para adição de um novo histórico de locações
+	 * 	@param historicoLocacao HistoricoLocacao - Novo objeto do tipo HistoricoLocacao
+	 * 	@return void*/
 	public void addHistoricoLocacao(HistoricoLocacao historicoLocacao) {
 		this.historicoLocacao.add(historicoLocacao);
 	}
-	
+	/** Metodo para retorno da categoria de acordo com o 
+	 * número de locações já realizadas. Esse método utiliza o número
+	 * de elementos no array do tipo HistoricoLocacao dentro dessa Classe.  
+	 * 
+	 * @return
+	 */
 	public String getCategoria(){
 		if(this.historicoLocacao.size() < 5) return BRONZE;
 		else if(this.historicoLocacao.size() < 10) return PRATA;
-		else return OURO;
-		
+		else return OURO;		
 	}
 
 }

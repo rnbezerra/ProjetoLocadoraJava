@@ -41,6 +41,10 @@ public class HistoricoLocacao{
 		return dataLocacao;
 	}
 
+	/**
+	 * Este método
+	 * @return
+	 */
 	public String getDataLocacaoAsString() {
 		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(this.dataLocacao);
 	}

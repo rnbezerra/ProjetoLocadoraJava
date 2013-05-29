@@ -2,18 +2,18 @@
 ## Eclipse
 #################
 
-*.pydevproject
+#*.pydevproject
 #.metadata
 #bin/
 #.classpath
 #.project
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
+#*.tmp
+#*.bak
+#*.swp
+#*~.nib
+#local.properties
 #.settings/
-.loadpath
+#.loadpath
 
 # External tool builders
 .externalToolBuilders/
