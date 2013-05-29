@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import projectutils.KeyValue;
-import projectutils.KeyValueCollection;
+import projectUtils.KeyValue;
+import projectUtils.KeyValueCollection;
 
 import model.AluguelSerializable;
 
