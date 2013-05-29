@@ -59,7 +59,7 @@ public class AtorArtistaImportacao {
 				}catch(IOException e){
 					
 					e.getStackTrace();
-					System.out.println("Erro em obter o código");
+					System.out.println("Erro ao obter o código");
 					
 				}
 			return null;
