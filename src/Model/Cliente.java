@@ -16,6 +16,7 @@ public class Cliente {
 	
 	
 	public Cliente() {
+		this.historicoLocacao = new HistoricoLocacaoCollection();
 	}
 	
 	/*
@@ -29,6 +30,7 @@ public class Cliente {
 		this.endereco = endereco;
 		this.cep = cep;
 		this.telefone = telefone;
+		this.historicoLocacao = new HistoricoLocacaoCollection();
 	}
 	
 	public Cliente(String nome, String codigo, String cpf, String endereco,
@@ -40,6 +42,7 @@ public class Cliente {
 		this.endereco = endereco;
 		this.cep = cep;
 		this.telefone = telefone;
+		this.historicoLocacao = new HistoricoLocacaoCollection();
 		this.historicoLocacao = historicoLocacao;
 	}
 	

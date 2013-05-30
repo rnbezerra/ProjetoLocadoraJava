@@ -16,31 +16,60 @@ import projectUtils.KeyValueCollection;
 
 
 public class Main {
-	//Comentario Ramon Java Feelings
-	// Comentario teste Iago
-
-	/**
-	 * @param args
-	 */
+	
 	public static void main(String[] param) {
-		
+		ControllerAluguel controllerAluguel = new ControllerAluguel();
+		controllerAluguel.realizaAluguel("001", "001022", "30/05/2013", 12.90);
+		/*
 		KeyValueCollection collection = new KeyValueCollection();
 		collection.addKeyValuesFromArray(param);
-		if(collection.hasKey("comando")){
-			if(collection.getValue("comando") == "aluguelDVD"){
-				// TODO verificar parametros obrigatórios
-				ControllerAluguel.realizaAluguel();
+		if(collection.hasKey("comando")){			
+			Consulta de DVD 
+			 * -comando consultaDVD -p <palavra chave>
+			 * Parâmetros opcionais:
+			 *  -y <Ano do lançamento>
+			 *  -g <Gênero>
+			 *  -a <Área>
+			 *  -t <Tipo de DVD>
+			 *  -c <Categoria>
+			 * 
+			 
+			if(collection.getValue("comando") == "consultaDVD"){
+				
 			}
+			//Visualizar os detalhes do DVD
+			//-comando selecionaDVD -c <código do DVD>
+			else if(collection.getValue("comando") == "selecionaDVD"){
+				
+			}
+			//Alugar DVD
+			//-comando alugarDVD -d <código do DVD> -c <código do Cliente> -t <data do aluguel (Formato DD/MM/YYYY)> -v <valor pago>
+			else if(collection.getValue("comando") == "aluguelDVD"){
+				//verificar parametros obrigatórios
+				if( collection.hasKey("d") && collection.hasKey("c") &&
+					collection.hasKey("t") && collection.hasKey("v")){
+					
+					ControllerAluguel.realizaAluguel();
+				}
+				else invalidParameters();
+			}
+			//Devolver DVD
+			//-comando devolverDVD -d <código do DVD> -c <código do Cliente> -t <data do aluguel (Formato DD/MM/YYYY)> -v <valor pago>
+			else if(collection.getValue("comando") == "devolverDVD"){
+				
+			}
+			//Consulta de Cliente
+			//-comando consultaCliente -c <código do cliente>
+			else if(collection.getValue("comando") == "consultaCliente"){
+				
+			}
+			
 		}
-		
-//		testeParametros();
-		
-//		AluguelSerializable advd = new AluguelSerializable("002100", "01245", "12/04/2013", 12.45);
-//		testeSerializacao(advd);
-//		testeDeserializacao(String.format("ALUGUEL\\ALUGUEL_%s_%s.ser", advd.getCodigoCliente(), advd.getCodigoDVD()));
-		
+		*/
 	}
-
+	private static void invalidParameters() {
+		System.out.println("Parametros obrigarótios inválidos.");
+	}
 	private static void testeSerializacao(AluguelSerializable advd) {
 		try{
 			String filename = String.format("ALUGUEL\\ALUGUEL_%s_%s.ser", advd.getCodigoCliente(), advd.getCodigoDVD());
