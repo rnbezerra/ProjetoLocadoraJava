@@ -25,8 +25,8 @@ public class HistoricoLocacao{
 			String dataDevolucao) {
 		super();
 		this.codigoDVD = codigoDVD;
-//		this.dataLocacao = dataLocacao;
-//		this.dataDevolucao = dataDevolucao;
+		this.setDataLocacao(dataLocacao);
+		this.setDataDevolucao(dataDevolucao);
 	}
 
 	public String getCodigoDVD() {
@@ -42,21 +42,27 @@ public class HistoricoLocacao{
 	}
 
 	/**
-	 * Este método retorna a data de locação no formato dd/MM/yyyy HH:mm:ss
-	 * @
-	 * @return
+	 * Este método retorna a data de locação em uma string
+	 * @return String formatada em "dd/MM/yyyy"
 	 */
 	public String getDataLocacaoAsString() {
-		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(this.dataLocacao);
+		return new SimpleDateFormat("dd/MM/yyyy").format(this.dataLocacao);
 	}
 
 	public void setDataLocacao(Date dataLocacao) {
 		this.dataLocacao = dataLocacao;
 	}
-
+	
+	/**
+	 * Este método insere valor no campo DataLocacao da classe.
+	 * @param dataLocacao String - "dd/MM/yyyy"
+	 * 	- Exemplo: "12/08/1994"
+	 * @return true - se a data for convertida e inserida;
+	 * 		   ou false - se ocorrer um erro na conversão;
+	 */
 	public boolean setDataLocacao(String dataLocacao) {
 		try {
-			this.dataLocacao = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(dataLocacao);
+			this.dataLocacao = new SimpleDateFormat("dd/MM/yyyy").parse(dataLocacao);
 			return true;
 		} catch (ParseException e) {
 			return false;
@@ -66,15 +72,26 @@ public class HistoricoLocacao{
 	public Date getDataDevolucao() {
 		return dataDevolucao;
 	}
-
+	
+	/**
+	 * Este método retorna a data de devolução em uma string
+	 * @return String formatada em "dd/MM/yyyy"
+	 */
 	public String getDataDevolucaoAsString() {
-		return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(this.dataDevolucao);
+		return new SimpleDateFormat("MM/dd/yyyy").format(this.dataDevolucao);
 	}
 
 	public void setDataDevolucao(Date dataDevolucao) {
 		this.dataDevolucao = dataDevolucao;
 	}
-
+	
+	/**
+	 * Este método insere valor no campo DataDevolucao da classe.
+	 * @param dataDevolucao String - "dd/MM/yyyy"
+	 * 	- Exemplo: "12/08/1994"
+	 * @return true - se a data for convertida e inserida;
+	 * 		   ou false - se ocorrer um erro na conversão;
+	 */
 	public boolean setDataDevolucao(String dataDevolucao) {
 		try {
 			this.dataDevolucao = new SimpleDateFormat("dd/MM/yyyy").parse(dataDevolucao);
