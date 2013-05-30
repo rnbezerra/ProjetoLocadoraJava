@@ -1,4 +1,4 @@
-package principal;
+package Principal;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -6,12 +6,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import controller.ControllerAluguel;
-import projectUtils.KeyValue;
-import projectUtils.KeyValueCollection;
+import Controller.ControllerAluguel;
+import Model.AluguelSerializable;
+import Model.Cliente;
+import ProjectUtils.KeyValue;
+import ProjectUtils.KeyValueCollection;
 
-import model.AluguelSerializable;
-import model.Cliente;
+
 
 
 public class Main {

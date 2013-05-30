@@ -1,4 +1,4 @@
-package projectUtils;
+package ProjectUtils;
 
 public class KeyValue {
 	
