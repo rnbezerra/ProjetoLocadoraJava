@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 
+import view.ViewAluguel;
+
 import model.AluguelSerializable;
 import model.Cliente;
 import model.DVD;
@@ -33,5 +35,13 @@ public class ControllerAluguel {
 		}
 		
 		return true;
+	}
+
+	public static void realizaAluguel() {
+		// TODO realizar logica de validação dos parametros
+		// TODO realizar logica de persistencia de aluguel
+		
+		ViewAluguel.mostraAluguelRealizado();
+		
 	}
 }

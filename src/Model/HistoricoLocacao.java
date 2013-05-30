@@ -42,7 +42,8 @@ public class HistoricoLocacao{
 	}
 
 	/**
-	 * Este método
+	 * Este método retorna a data de locação no formato dd/MM/yyyy HH:mm:ss
+	 * @
 	 * @return
 	 */
 	public String getDataLocacaoAsString() {

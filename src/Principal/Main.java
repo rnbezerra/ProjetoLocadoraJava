@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import controller.ControllerAluguel;
 import projectUtils.KeyValue;
 import projectUtils.KeyValueCollection;
 
@@ -19,7 +21,17 @@ public class Main {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] param) {
+		
+		KeyValueCollection collection = new KeyValueCollection();
+		collection.addKeyValuesFromArray(param);
+		if(collection.hasKey("comando")){
+			if(collection.getValue("comando") == "aluguelDVD"){
+				// TODO verificar parametros obrigatórios
+				ControllerAluguel.realizaAluguel();
+			}
+		}
+		
 //		testeParametros();
 		
 //		AluguelSerializable advd = new AluguelSerializable("002100", "01245", "12/04/2013", 12.45);

@@ -35,7 +35,7 @@ public class KeyValueCollection extends ArrayList<KeyValue> {
 		
 	public void addKeyValuesFromArray(String[] param){
 		StringBuilder allParams = new StringBuilder();
-				
+		
 		for(String p : param){
 			allParams.append(p).append(":");
 		}

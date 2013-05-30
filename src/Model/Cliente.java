@@ -109,7 +109,6 @@ public class Cliente {
 	 * número de locações já realizadas. Esse método utiliza o número
 	 * de elementos no array do tipo HistoricoLocacao dentro dessa Classe.  
 	 * 
-	 * @return
 	 */
 	public String getCategoria(){
 		if(this.historicoLocacao.size() < 5) return BRONZE;
