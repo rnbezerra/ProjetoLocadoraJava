@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import controller.ControllerAluguel;
 import model.AluguelSerializable;
 import model.Cliente;
+import model.HistoricoLocacao;
 import projectUtils.KeyValue;
 import projectUtils.KeyValueCollection;
 
@@ -18,8 +19,7 @@ import projectUtils.KeyValueCollection;
 public class Main {
 	
 	public static void main(String[] param) {
-		ControllerAluguel controllerAluguel = new ControllerAluguel();
-		controllerAluguel.realizaAluguel("001", "001022", "30/05/2013", 12.90);
+		testeHistoricoLocacao();
 		/*
 		KeyValueCollection collection = new KeyValueCollection();
 		collection.addKeyValuesFromArray(param);
@@ -66,6 +66,17 @@ public class Main {
 			
 		}
 		*/
+	}
+	private static void testeHistoricoLocacao() {
+		Cliente cliente = new Cliente();
+		cliente.addHistoricoLocacao(new HistoricoLocacao("001", "02/05/2013", "05/05/2013"));
+		cliente.addHistoricoLocacao(new HistoricoLocacao("002", "12/05/2013", "15/05/2013"));
+		cliente.addHistoricoLocacao(new HistoricoLocacao("003", "22/05/2013", "25/05/2013"));
+		
+		for (HistoricoLocacao h : cliente.getHistoricoLocacao()) {
+			System.out.println(String.format("%s  %s  %s", h.getCodigoDVD(), h.getDataLocacaoAsString(), h.getDataDevolucaoAsString()));
+		}
+		
 	}
 	private static void invalidParameters() {
 		System.out.println("Parametros obrigarótios inválidos.");
