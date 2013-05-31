@@ -73,9 +73,7 @@ public class ClienteImportacao {
 				//leitura = bufferedReader.readLine();
 				
 				while((leitura = bufferedReader.readLine()) != null){
-					
 					listaDeDados.add(leitura);
-					
 					}	
 						
 				while((Dados = listaDeDados.get(i))!= null){
@@ -100,23 +98,18 @@ public class ClienteImportacao {
 							hisLoc.setCodigoDVD(Historico[0]);
 							hisLoc.setDataLocacao(Historico[1]);
 							hisLoc.setDataDevolucao(Historico[2]);
-							//System.out.println(hisLoc.getDataDevolucaoAsString());
+							c.addHistoricoLocacao(hisLoc);							
 							i++;
 						}
 					}
-					else{						
-							System.out.println("Começou um novo cliente");
-							listaDeDados.get(i);
-						}
-					i++;
-										
-					}
-
+					i++;										
+				}
+				
 			}					
 			catch(Exception e){
 				e.getStackTrace();}
-		
-}
+			
+			System.out.println(c.getHistoricoLocacao().get(3).getCodigoDVD());
 
-
+	}
 }
