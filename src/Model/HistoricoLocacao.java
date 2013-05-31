@@ -2,19 +2,20 @@ package model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class HistoricoLocacao{
 
 	private String codigoDVD;
-	private Date dataLocacao;
-	private Date dataDevolucao;
+	private Calendar dataLocacao;
+	private Calendar dataDevolucao;
 	
 	public HistoricoLocacao() {
 	}
 
-	public HistoricoLocacao(String codigoDVD, Date dataLocacao,
-			Date dataDevolucao) {
+	public HistoricoLocacao(String codigoDVD, Calendar dataLocacao,
+			Calendar dataDevolucao) {
 		super();
 		this.codigoDVD = codigoDVD;
 		this.dataLocacao = dataLocacao;
@@ -37,7 +38,7 @@ public class HistoricoLocacao{
 		this.codigoDVD = codigoDVD;
 	}
 
-	public Date getDataLocacao() {
+	public Calendar getDataLocacao() {
 		return dataLocacao;
 	}
 
@@ -46,10 +47,10 @@ public class HistoricoLocacao{
 	 * @return String formatada em "dd/MM/yyyy"
 	 */
 	public String getDataLocacaoAsString() {
-		return new SimpleDateFormat("dd/MM/yyyy").format(this.dataLocacao);
+		return new SimpleDateFormat("dd/MM/yyyy").format(this.dataLocacao.getTime());
 	}
 
-	public void setDataLocacao(Date dataLocacao) {
+	public void setDataLocacao(Calendar dataLocacao) {
 		this.dataLocacao = dataLocacao;
 	}
 	
@@ -62,14 +63,15 @@ public class HistoricoLocacao{
 	 */
 	public boolean setDataLocacao(String dataLocacao) {
 		try {
-			this.dataLocacao = new SimpleDateFormat("dd/MM/yyyy").parse(dataLocacao);
+			this.dataLocacao = Calendar.getInstance();
+			this.dataLocacao.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(dataLocacao));
 			return true;
 		} catch (ParseException e) {
 			return false;
 		}  
 	}
 
-	public Date getDataDevolucao() {
+	public Calendar getDataDevolucao() {
 		return dataDevolucao;
 	}
 	
@@ -78,10 +80,10 @@ public class HistoricoLocacao{
 	 * @return String formatada em "dd/MM/yyyy"
 	 */
 	public String getDataDevolucaoAsString() {
-		return new SimpleDateFormat("MM/dd/yyyy").format(this.dataDevolucao);
+		return new SimpleDateFormat("dd/MM/yyyy").format(this.dataDevolucao.getTime());
 	}
 
-	public void setDataDevolucao(Date dataDevolucao) {
+	public void setDataDevolucao(Calendar dataDevolucao) {
 		this.dataDevolucao = dataDevolucao;
 	}
 	
@@ -94,7 +96,8 @@ public class HistoricoLocacao{
 	 */
 	public boolean setDataDevolucao(String dataDevolucao) {
 		try {
-			this.dataDevolucao = new SimpleDateFormat("dd/MM/yyyy").parse(dataDevolucao);
+			this.dataDevolucao = Calendar.getInstance();
+			this.dataDevolucao.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(dataDevolucao));
 			return true;
 		} catch (ParseException e) {
 			return false;

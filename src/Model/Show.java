@@ -1,5 +1,7 @@
 package model;
 
+import model.DVD.Categoria;
+
 public class Show extends DVD {
 
 	private String artista;
@@ -8,8 +10,8 @@ public class Show extends DVD {
 	}
 
 	public Show(String titulo, String codigo, String area, String genero, String artista,
-			String anoLancamento, int copias) {
-		super(titulo, codigo, area, genero, anoLancamento, copias);
+			String anoLancamento, Categoria categoria, int copias) {
+		super(titulo, codigo, area, genero, anoLancamento, categoria, copias);
 		this.artista = artista;
 	}
 

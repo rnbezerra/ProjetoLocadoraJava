@@ -1,10 +1,34 @@
 package view;
 
+import model.Cliente;
+import model.DVD;
+
 public class ViewAluguel {
 
-	public static void mostraAluguelRealizado() {
-		// TODO Auto-generated method stub
-		System.out.println("Olá Mundo");
+	public static void mostraAluguelRealizado(Cliente cliente, DVD dvd, double saldo, String dataDevolucao) {
+		/*
+		DVD Alugado com sucesso:\n
+		<Código do Cliente>-<Nome do Cliente>\n
+		<Código do DVD>-<Nome do DVD>\n
+		Data de devolução:<Data de Devolução (formato DD/MM/YYYY)>\n
+		Saldo do Cliente: R$<Saldo do cliente>\n
+		DVDs disponíveis: <Número deste DVD ainda disponíveis>\n
+		*/
+		StringBuilder mensagem = new StringBuilder();
+		mensagem.append("DVD Alugado com sucesso:\n")
+				.append(String.format("%s-%s\n", cliente.getCodigo(), cliente.getNome()))
+				.append(String.format("%s-%s\n", dvd.getCodigo(), dvd.getTitulo()))
+				.append(String.format("Data de devolucao: %s\n", dataDevolucao))
+				.append(String.format("Saldo do Cliente: %s\n", String.valueOf(saldo).replace(".", ",")))
+				.append(String.format("DVDs disponíveis: %i\n", dvd.getCopias()));
+	}
+
+	public static void dadoNaoEncontrado() {
+		System.out.println("DVD ou Cliente não encontrado.");
+	}
+
+	public static void copiasIndisponiveis(DVD dvd) {
+		System.out.println("Não há cópias disponíveis do DVD");
 	}
 
 }

@@ -13,8 +13,8 @@ public class Filme extends DVD {
 
 	public Filme(String titulo, String codigo, String area, String genero, String direcao,
 			ArrayList<String> elenco,
-			String anoLancamento, int copias) {
-		super(titulo, codigo, area, genero, anoLancamento, copias);
+			String anoLancamento, Categoria categoria, int copias) {
+		super(titulo, codigo, area, genero, anoLancamento, categoria, copias);
 		this.direcao = direcao;
 		this.elenco = elenco;
 	}
