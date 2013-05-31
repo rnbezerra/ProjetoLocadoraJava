@@ -9,44 +9,21 @@ import java.util.*;
 
 
 public class ClienteImportacao {
+	/*
+	 * A classe ClienteImportacao é responsável por obter os dados dos clientes que estao dentro
+	 * do aquivo clientes.txt na pasta importacao, e retornar uma ArrayList contendo todos os 
+	 * dados desses clientes. 
+	 * 
+	 * Pela dificuldade gerada ao trabalhar somente com a classe File,
+	 * preenchi primeiramente uma ArrayList com os dados deste arquivo e trabalhei com estes dados.
+	 * Com relação ao historico de pedidos, criei um novo while para que assim seja possivel tratar
+	 * os atributos entre # e ## quebra-los e preencher o historico de locações utilizando os metodos
+	 * criados na classe HistoricoLocacao e HistoricoLocacaoCollection.
+	 * 
+	 * 
+	 * */	
 	
-	
-	
-//	
-//	public static void dadosClientes(){
-//	 File dir = new File("importacao");
-//	 File arq = new File(dir, "clientes.txt");
-//	
-//	
-//		try {
-//			FileReader fileReader = new FileReader(arq);
-//		
-//			ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
-//			
-//			BufferedReader bufferedReader = new BufferedReader(fileReader);
-//			
-//			String leitura = bufferedReader.readLine();
-//			
-//			
-//			Cliente lc = new Cliente();
-//			
-////			lc.setNome(nome);
-////			lc.setCodigo(codigo);
-////			lc.setCpf(cpf);
-////			lc.setEndereco(endereco);
-////			lc.setCep(cep);
-////			lc.setTelefone(telefone);
-////			lc.setHistoricoLocacao(historicoLocacao);
-//			
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//	}
-
-	
-	
-	public static void main(String[] args) {
+	public static ArrayList<Cliente> clienteImportacao(){
 		
 		/*Declaração de Variaveis*/
 		
@@ -62,9 +39,9 @@ public class ClienteImportacao {
 		
 		
 		File dir = new File("importacao");
-		File arq = new File(dir, "clientesbkp.txt");
-		Cliente c = new Cliente();
-		HistoricoLocacao hisLoc = new HistoricoLocacao();
+		File arq = new File(dir, "clientes.txt");
+		
+		
 		
 			try {
 				FileReader fileReader = new FileReader(arq);
@@ -75,8 +52,12 @@ public class ClienteImportacao {
 				while((leitura = bufferedReader.readLine()) != null){
 					listaDeDados.add(leitura);
 					}	
-						
+				
+				bufferedReader.close();
+				
 				while((Dados = listaDeDados.get(i))!= null){
+					Cliente c = new Cliente();
+					
 					c.setNome(Dados);
 					i++;
 					c.setCodigo(listaDeDados.get(i));
@@ -94,6 +75,7 @@ public class ClienteImportacao {
 					if((Dados = listaDeDados.get(i)).equals("#")){
 						i++;
 						while(!(listaDeDados.get(i).equals("##"))){
+							HistoricoLocacao hisLoc = new HistoricoLocacao();
 							Historico = listaDeDados.get(i).split(" ");
 							hisLoc.setCodigoDVD(Historico[0]);
 							hisLoc.setDataLocacao(Historico[1]);
@@ -102,14 +84,28 @@ public class ClienteImportacao {
 							i++;
 						}
 					}
-					i++;										
+					
+					listaDeClientes.add(c);
+					i++;
+					
 				}
 				
 			}					
 			catch(Exception e){
 				e.getStackTrace();}
 			
-			System.out.println(c.getHistoricoLocacao().get(3).getCodigoDVD());
+			return listaDeClientes;
 
 	}
+
+// Uma main de quebra pra teste :P
+//	public static void main(String args[]){ 
+//		
+//		clienteImportacao();
+//		
+//		
+//		
+//	}
+
+
 }
