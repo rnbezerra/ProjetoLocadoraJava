@@ -117,10 +117,16 @@ public class Cliente {
 	 * de elementos no array do tipo HistoricoLocacao dentro dessa Classe.  
 	 * 
 	 */
-	public String getCategoria(){
+	public String getStatusAsString(){
 		if(this.historicoLocacao.size() < 5) return BRONZE;
 		else if(this.historicoLocacao.size() < 10) return PRATA;
 		else return OURO;		
+	}
+	
+	public StatusCliente getStatus(){
+		if(this.historicoLocacao.size() < 5) return StatusCliente.Bronze;
+		else if(this.historicoLocacao.size() < 10) return StatusCliente.Prata;
+		else return StatusCliente.Ouro;		
 	}
 
 }
