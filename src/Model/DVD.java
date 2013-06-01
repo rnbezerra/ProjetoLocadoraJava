@@ -2,8 +2,12 @@ package model;
 
 public class DVD {
 
-	public enum Categoria{
+	public enum CategoriaDVD{
 		Acervo, Lancamento;
+	}
+	
+	public enum TipoDVD{
+		Show, Filme;
 	}
 	
 	protected String titulo;
@@ -11,14 +15,16 @@ public class DVD {
 	protected String area;
 	protected String genero;
 	protected String anoLancamento;
-	protected Categoria categoria;
+	protected CategoriaDVD categoria;
+	protected TipoDVD tipo;
 	protected int copias;
 	
 	public DVD() {
 	}
 		
 	public DVD(String titulo, String codigo, String area, String genero,
-			String anoLancamento, Categoria categoria, int copias) {
+			String anoLancamento, CategoriaDVD categoria, TipoDVD tipo,
+			int copias) {
 		super();
 		this.titulo = titulo;
 		this.codigo = codigo;
@@ -26,6 +32,7 @@ public class DVD {
 		this.genero = genero;
 		this.anoLancamento = anoLancamento;
 		this.categoria = categoria;
+		this.tipo = tipo;
 		this.copias = copias;
 	}
 
@@ -69,7 +76,7 @@ public class DVD {
 		this.anoLancamento = anoLancamento;
 	}
 	
-	public Categoria getCategoria() {
+	public CategoriaDVD getCategoria() {
 		return categoria;
 	}
 	
@@ -81,7 +88,7 @@ public class DVD {
 		}
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(CategoriaDVD categoria) {
 		this.categoria = categoria;
 	}
 

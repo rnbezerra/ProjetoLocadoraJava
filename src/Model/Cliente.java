@@ -6,6 +6,10 @@ public class Cliente {
 	public static final String PRATA = "Prata";
 	public static final String OURO = "Ouro";
 	
+	public enum StatusCliente{
+		Bronze, Prata, Ouro;
+	}
+	
 	private String nome;
 	private String codigo;
 	private String cpf;

@@ -1,18 +1,19 @@
 package model;
 
-import model.DVD.Categoria;
+import model.DVD.CategoriaDVD;
 
 public class Show extends DVD {
 
 	private String artista;
+	private String faixas;
 		
 	public Show() {
 	}
-
-	public Show(String titulo, String codigo, String area, String genero, String artista,
-			String anoLancamento, Categoria categoria, int copias) {
-		super(titulo, codigo, area, genero, anoLancamento, categoria, copias);
+		
+	public Show(String artista, String faixas) {
+		super();
 		this.artista = artista;
+		this.faixas = faixas;
 	}
 
 	public String getArtista() {
@@ -21,5 +22,13 @@ public class Show extends DVD {
 
 	public void setArtista(String artista) {
 		this.artista = artista;
+	}
+
+	public String getFaixas() {
+		return faixas;
+	}
+
+	public void setFaixas(String faixas) {
+		this.faixas = faixas;
 	}
 }
