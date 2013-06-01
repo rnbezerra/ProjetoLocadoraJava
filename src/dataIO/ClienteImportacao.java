@@ -33,8 +33,8 @@ public class ClienteImportacao {
 		ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
 		ArrayList<String> listaDeDados = new ArrayList<String>();
 		
-		String Dados;
-		String[] Historico;
+		String dados;
+		String[] historico;
 		/*----------------------*/
 		
 		
@@ -55,10 +55,10 @@ public class ClienteImportacao {
 				
 				bufferedReader.close();
 				
-				while((Dados = listaDeDados.get(i))!= null){
+				while((dados = listaDeDados.get(i))!= null){
 					Cliente c = new Cliente();
 					
-					c.setNome(Dados);
+					c.setNome(dados);
 					i++;
 					c.setCodigo(listaDeDados.get(i));
 					i++;
@@ -72,14 +72,14 @@ public class ClienteImportacao {
 					i++;
 					i++;//Existe um campo com o tipo de usuario Bronze etc, nao existe set pra isso, entao pulei
 					
-					if((Dados = listaDeDados.get(i)).equals("#")){
+					if((dados = listaDeDados.get(i)).equals("#")){
 						i++;
 						while(!(listaDeDados.get(i).equals("##"))){
 							HistoricoLocacao hisLoc = new HistoricoLocacao();
-							Historico = listaDeDados.get(i).split(" ");
-							hisLoc.setCodigoDVD(Historico[0]);
-							hisLoc.setDataLocacao(Historico[1]);
-							hisLoc.setDataDevolucao(Historico[2]);
+							historico = listaDeDados.get(i).split(" ");
+							hisLoc.setCodigoDVD(historico[0]);
+							hisLoc.setDataLocacao(historico[1]);
+							hisLoc.setDataDevolucao(historico[2]);
 							c.addHistoricoLocacao(hisLoc);							
 							i++;
 						}
@@ -97,15 +97,5 @@ public class ClienteImportacao {
 			return listaDeClientes;
 
 	}
-
-// Uma main de quebra pra teste :P
-//	public static void main(String args[]){ 
-//		
-//		clienteImportacao();
-//		
-//		
-//		
-//	}
-
 
 }
