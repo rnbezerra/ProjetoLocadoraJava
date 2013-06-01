@@ -20,7 +20,7 @@ public class ShowImportacao {
 	 * 
 	 * */
 	
-	
+	//public static void main(String args[]){
 	public static ArrayList<Show> listaDeShows(){
 		/*Declaração de variáveis */
 		
@@ -46,10 +46,10 @@ public class ShowImportacao {
 				
 				bufferedReader.close();
 				
-				while((dados = listaDeDados.get(i)) != null){
+				while(i != listaDeDados.size()){
 					Show show = new Show();
 					
-					show.setTitulo(dados);
+					show.setTitulo(listaDeDados.get(i));
 					i++;
 					show.setCodigo(listaDeDados.get(i));
 					i++;
@@ -69,7 +69,7 @@ public class ShowImportacao {
 					if(categoriaFile.toLowerCase().equals("lançamento")){
 						show.setCategoria(CategoriaDVD.Lancamento);
 					}else if(categoriaFile.toLowerCase().equals("acervo")){
-						show.setCategoria(CategoriaDVD.Acervo);
+						show.setCategoria(CategoriaDVD.Acervo);	
 					}
 					i++;
 					listaDeShows.add(show);
