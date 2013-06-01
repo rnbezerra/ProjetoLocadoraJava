@@ -1,17 +1,17 @@
 package model;
 
-import model.DVD.CategoriaDVD;
-
 public class Show extends DVD {
 
 	private String artista;
 	private String faixas;
 		
 	public Show() {
+		super.tipo = TipoDVD.Show;
 	}
-		
-	public Show(String artista, String faixas) {
-		super();
+
+	public Show(String titulo, String codigo, String area, String genero,
+			String anoLancamento, CategoriaDVD categoria, int copias, String artista, String faixas) {
+		super(titulo, codigo, area, genero, anoLancamento, categoria, copias);
 		this.artista = artista;
 		this.faixas = faixas;
 	}

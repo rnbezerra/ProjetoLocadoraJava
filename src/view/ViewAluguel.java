@@ -1,5 +1,7 @@
 package view;
 
+import java.text.NumberFormat;
+
 import model.Cliente;
 import model.DVD;
 
@@ -13,14 +15,15 @@ public class ViewAluguel {
 		Data de devolução:<Data de Devolução (formato DD/MM/YYYY)>\n
 		Saldo do Cliente: R$<Saldo do cliente>\n
 		DVDs disponíveis: <Número deste DVD ainda disponíveis>\n
-		*/
+		*/		
+		
 		StringBuilder mensagem = new StringBuilder();
 		mensagem.append("DVD Alugado com sucesso:\n")
 				.append(String.format("%s-%s\n", cliente.getCodigo(), cliente.getNome()))
 				.append(String.format("%s-%s\n", dvd.getCodigo(), dvd.getTitulo()))
 				.append(String.format("Data de devolucao: %s\n", dataDevolucao))
-				.append(String.format("Saldo do Cliente: %s\n", String.valueOf(saldo).replace(".", ",")))
-				.append(String.format("DVDs disponíveis: %i\n", dvd.getCopias()));
+				.append(String.format("Saldo do Cliente: %s\n",NumberFormat.getCurrencyInstance().format(saldo)))
+				.append(String.format("DVDs disponíveis: %d\n", dvd.getCopias()));
 	}
 
 	public static void dadoNaoEncontrado() {

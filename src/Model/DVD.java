@@ -23,7 +23,7 @@ public class DVD {
 	}
 		
 	public DVD(String titulo, String codigo, String area, String genero,
-			String anoLancamento, CategoriaDVD categoria, TipoDVD tipo,
+			String anoLancamento, CategoriaDVD categoria,
 			int copias) {
 		super();
 		this.titulo = titulo;
@@ -32,7 +32,6 @@ public class DVD {
 		this.genero = genero;
 		this.anoLancamento = anoLancamento;
 		this.categoria = categoria;
-		this.tipo = tipo;
 		this.copias = copias;
 	}
 
@@ -81,15 +80,23 @@ public class DVD {
 	}
 	
 	public String getCategoriaAsString() {
-		switch (this.categoria) {
-		case Acervo: return "Acervo";
-		case Lancamento: 
-		default: return "Lancamento";
-		}
+		return this.categoria.toString().toLowerCase();
 	}
 
 	public void setCategoria(CategoriaDVD categoria) {
 		this.categoria = categoria;
+	}
+
+	public TipoDVD getTipo() {
+		return tipo;
+	}
+	
+	public String getTipoAsString() {
+		return tipo.toString().toLowerCase();
+	}
+
+	public void setTipo(TipoDVD tipo) {
+		this.tipo = tipo;
 	}
 
 	public int getCopias() {
@@ -107,4 +114,20 @@ public class DVD {
 		default: return 3;
 		}
 	}
+	
+	public double getPrecoLocacao(Cliente.StatusCliente status) {
+		switch (status) {
+		case Ouro:
+			if(this.categoria == CategoriaDVD.Lancamento) return 5;
+			else return 3;
+		case Prata:
+			if(this.categoria == CategoriaDVD.Lancamento) return 6;
+			else return 4;
+		case Bronze:
+		default:
+			if(this.categoria == CategoriaDVD.Lancamento) return 7;
+			else return 5;
+		}
+	}
 }
+

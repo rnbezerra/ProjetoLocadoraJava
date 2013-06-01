@@ -16,9 +16,12 @@ import javax.swing.text.View;
 
 import org.w3c.dom.ls.LSInput;
 
+import dataIO.ClienteImportacao;
+
 import model.AluguelSerializable;
 import model.Cliente;
 import model.DVD;
+import model.DVD.TipoDVD;
 import model.Filme;
 import model.HistoricoLocacao;
 import model.Show;
@@ -26,33 +29,15 @@ import model.Show;
 import view.ViewAluguel;
 
 public class ControllerAluguel {
-
-	private Cliente cliente;
-	private DVD dvd;
-	private Date dataAluguel;
-	private double valorPago;
 	
 	public static void realizaAluguel(String codigoDVD, String codigoCliente, String dataAluguel, double valorPago) {
-		// TODO realizar logica de validação dos parametros
-		// TODO realizar logica de persistencia de aluguel
 		
 		Cliente cliente;
-		Object objectDvd;
+		DVD dvd;
 				
-		if((cliente = getCliente(codigoCliente)) == null || (objectDvd = getDVD(codigoDVD)) == null){
+		if((cliente = getCliente(codigoCliente)) == null || (dvd = getDVD(codigoDVD)) == null){
 			ViewAluguel.dadoNaoEncontrado();
 			return;
-		}
-		
-		String tipoDvd = "";
-		DVD dvd = new DVD();
-		if(objectDvd instanceof Filme){
-			tipoDvd = "Filme";
-			dvd = (DVD)objectDvd;
-		}
-		else if(objectDvd instanceof Show){
-			tipoDvd = "Show";
-			dvd = (DVD)objectDvd;
 		}
 		
 		if(dvd.getCopias() == 0){
@@ -71,8 +56,14 @@ public class ControllerAluguel {
 			e.printStackTrace();
 		}  
 		
-		double saldo = valorPago;
-			
+		//calculo do preço de locação
+		double saldo = valorPago - dvd.getPrecoLocacao(cliente.getStatus());
+
+		//Decremento do número de copias em função do aluguel e uma copia
+		dvd.setCopias(dvd.getCopias()-1);
+		
+		//TODO chamar método de serialização do alugual
+		
 		ViewAluguel.mostraAluguelRealizado(cliente, dvd, saldo, new SimpleDateFormat("dd/MM/yyyy").format(dataDevolucao));
 		
 	}
@@ -80,6 +71,7 @@ public class ControllerAluguel {
 	private static Cliente getCliente(String codigo) {
 		ArrayList<Cliente> lista = new ArrayList<Cliente>();
 		//TODO carregar lista de clientes a partir do arquivo
+		lista = ClienteImportacao.clienteImportacao();
 			
 		for (Cliente cliente : lista) {
 			if(cliente.getCodigo().equals(codigo)) return cliente; 
@@ -91,6 +83,8 @@ public class ControllerAluguel {
 	private static DVD getDVD(String codigo) {
 		ArrayList<DVD> lista = new ArrayList<DVD>();
 		//TODO carregar lista de DVDs a partir do arquivo
+		//==CODIGO CRIADO SOMENTE PARA TESTES==
+		//==CODIGO CRIADO SOMENTE PARA TESTES==
 		
 		for (DVD dvd : lista) {
 			if(dvd.getCodigo().equals(codigo)) return dvd;
@@ -98,24 +92,6 @@ public class ControllerAluguel {
 		
 		return null;
 	}
-	/*
-	private static boolean Save() {
-		AluguelSerializable serializable = new AluguelSerializable(cliente.getCodigo(), dvd.getCodigo(), dataAluguel, valorPago);
-		
-		try{
-			String filename = String.format("ALUGUEL\\ALUGUEL_%s_%s", cliente.getCodigo(), dvd.getCodigo());
-			FileOutputStream fileOutputStream = new FileOutputStream(filename);
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			objectOutputStream.writeObject(serializable);
-			objectOutputStream.close();
-			fileOutputStream.close();
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-		
-		return true;
-	}*/
-
+	
 	
 }

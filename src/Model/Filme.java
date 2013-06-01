@@ -9,17 +9,21 @@ public class Filme extends DVD {
 	private String sinopse;
 	
 	public Filme() {
+		super.tipo = TipoDVD.Filme;
 		this.elenco = new ArrayList<String>();
 	}
-	
-	public Filme(String direcao, ArrayList<String> elenco, String sinopse) {
-		super();
+		
+	public Filme(String titulo, String codigo, String area, String genero,
+			String anoLancamento, CategoriaDVD categoria,
+			int copias, String direcao, ArrayList<String> elenco, String sinopse) {
+		super(titulo, codigo, area, genero, anoLancamento, categoria,
+				copias);
 		this.direcao = direcao;
-		this.elenco = new ArrayList<String>();
 		this.elenco = elenco;
 		this.sinopse = sinopse;
+		super.tipo = TipoDVD.Filme;
 	}
-	
+
 	public String getDirecao() {
 		return direcao;
 	}

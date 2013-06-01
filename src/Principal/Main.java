@@ -5,10 +5,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import controller.ControllerAluguel;
 import model.AluguelSerializable;
 import model.Cliente;
+import model.DVD;
+import model.Filme;
+import model.Show;
+import model.DVD.CategoriaDVD;
+import model.DVD.TipoDVD;
 import model.HistoricoLocacao;
 import projectUtils.KeyValue;
 import projectUtils.KeyValueCollection;
@@ -18,8 +24,18 @@ import projectUtils.KeyValueCollection;
 
 public class Main {
 	
+	
 	public static void main(String[] param) {
-		testeHistoricoLocacao();
+
+
+		DVD dvd = new DVD("dvd1", "0144", "1", "drama", "1999", CategoriaDVD.Acervo, 8);
+		Filme filme = new Filme("filme1", "078", "4", "ação", "1998", CategoriaDVD.Acervo, 8, "2654", new ArrayList<String>(), "texto sinopse");
+		System.out.println(dvd.getTitulo());
+		dvd = filme;
+		System.out.println(dvd.getTipo());
+		dvd = new Show();
+		System.out.println(dvd.getTipo());
+		
 		/*
 		KeyValueCollection collection = new KeyValueCollection();
 		collection.addKeyValuesFromArray(param);
@@ -67,20 +83,12 @@ public class Main {
 		}
 		*/
 	}
-	private static void testeHistoricoLocacao() {
-		Cliente cliente = new Cliente();
-		cliente.addHistoricoLocacao(new HistoricoLocacao("001", "02/05/2013", "05/05/2013"));
-		cliente.addHistoricoLocacao(new HistoricoLocacao("002", "12/05/2013", "15/05/2013"));
-		cliente.addHistoricoLocacao(new HistoricoLocacao("003", "22/05/2013", "25/05/2013"));
-		
-		for (HistoricoLocacao h : cliente.getHistoricoLocacao()) {
-			System.out.println(String.format("%s  %s  %s", h.getCodigoDVD(), h.getDataLocacaoAsString(), h.getDataDevolucaoAsString()));
-		}
-		
-	}
+
+
 	private static void invalidParameters() {
 		System.out.println("Parametros obrigarótios inválidos.");
 	}
+
 	private static void testeSerializacao(AluguelSerializable advd) {
 		try{
 			String filename = String.format("ALUGUEL\\ALUGUEL_%s_%s.ser", advd.getCodigoCliente(), advd.getCodigoDVD());

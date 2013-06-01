@@ -2,10 +2,6 @@ package model;
 
 public class Cliente {
 
-	public static final String BRONZE = "Bronze";
-	public static final String PRATA = "Prata";
-	public static final String OURO = "Ouro";
-	
 	public enum StatusCliente{
 		Bronze, Prata, Ouro;
 	}
@@ -118,9 +114,9 @@ public class Cliente {
 	 * 
 	 */
 	public String getStatusAsString(){
-		if(this.historicoLocacao.size() < 5) return BRONZE;
-		else if(this.historicoLocacao.size() < 10) return PRATA;
-		else return OURO;		
+		if(this.historicoLocacao.size() < 5) return StatusCliente.Bronze.toString().toLowerCase();
+		else if(this.historicoLocacao.size() < 10) return StatusCliente.Prata.toString().toLowerCase();
+		else return StatusCliente.Ouro.toString().toLowerCase();
 	}
 	
 	public StatusCliente getStatus(){
