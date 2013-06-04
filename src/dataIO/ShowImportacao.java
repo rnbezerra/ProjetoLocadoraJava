@@ -49,29 +49,29 @@ public class ShowImportacao {
 				while(i != listaDeDados.size()){
 					Show show = new Show();
 					
-					show.setTitulo(listaDeDados.get(i));
-					i++;
-					show.setCodigo(listaDeDados.get(i));
-					i++;
-					show.setArea(listaDeDados.get(i));
-					i++;
-					show.setFaixas(listaDeDados.get(i));
-					i++;
-					show.setGenero(listaDeDados.get(i));
-					i++;
-					show.setArtista(listaDeDados.get(i));
-					i++;
-					show.setAnoLancamento(listaDeDados.get(i));
-					i++;
-					show.setCopias(Integer.parseInt(listaDeDados.get(i)));
-					i++; //inicio do tratamento de categoria
-					categoriaFile = listaDeDados.get(i);
+					show.setTitulo(listaDeDados.get(i++));
+					//i++;
+					show.setCodigo(listaDeDados.get(i++));
+					//i++;
+					show.setArea(listaDeDados.get(i++));
+					//i++;
+					show.setFaixas(listaDeDados.get(i++));
+					//i++;
+					show.setGenero(listaDeDados.get(i++));
+					//i++;
+					show.setArtista(listaDeDados.get(i++));
+					//i++;
+					show.setAnoLancamento(listaDeDados.get(i++));
+					//i++;
+					show.setCopias(Integer.parseInt(listaDeDados.get(i++)));
+					//i++; //inicio do tratamento de categoria
+					categoriaFile = listaDeDados.get(i++);
 					if(categoriaFile.toLowerCase().equals("lançamento")){
 						show.setCategoria(CategoriaDVD.Lancamento);
 					}else if(categoriaFile.toLowerCase().equals("acervo")){
 						show.setCategoria(CategoriaDVD.Acervo);	
 					}
-					i++;
+					//i++;
 					listaDeShows.add(show);
 					i++; 
 				}

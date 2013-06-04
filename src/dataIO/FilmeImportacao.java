@@ -25,14 +25,14 @@ public class FilmeImportacao {
 	
 	
 	
-	
+	//public static void main(String args[]){
 	public static ArrayList<Filme> listaDeFilmes(){
 	
 		
 	/*Declaração de variáveis */
 		
 		int i = 0;
-		String leitura, dados, categoriaFile;
+		String leitura, /*dados,*/ categoriaFile;
 		ArrayList<String> listaDeDados = new ArrayList<String>();
 		ArrayList<Filme> listaDeFilmes = new ArrayList<Filme>();
 		ArrayList<String> listaElenco = new ArrayList<String>();
@@ -53,40 +53,40 @@ public class FilmeImportacao {
 				
 				bufferedReader.close();
 				
-				while((dados = listaDeDados.get(i)) != null){
+				while(i != listaDeDados.size()){
 					Filme filme = new Filme();
 					
-					filme.setTitulo(dados);
-					i++;
-					filme.setCodigo(listaDeDados.get(i));
-					i++;
-					filme.setArea(listaDeDados.get(i));
-					i++;
-					filme.setSinopse(listaDeDados.get(i));
-					i++;
-					filme.setGenero(listaDeDados.get(i));
-					i++;
+					filme.setTitulo(listaDeDados.get(i++));
+					//i++;
+					filme.setCodigo(listaDeDados.get(i++));
+					//i++;
+					filme.setArea(listaDeDados.get(i++));
+					//i++;
+					filme.setSinopse(listaDeDados.get(i++));
+					//i++;
+					filme.setGenero(listaDeDados.get(i++));
+					//i++;
 					/*Inserindo o elenco como uma lista */
 					
-					listaElenco = new ArrayList<String>(Arrays.asList((listaDeDados.get(i)).split(", ")));
+					listaElenco = new ArrayList<String>(Arrays.asList((listaDeDados.get(i++)).split(", ")));
 					filme.setElenco(listaElenco);
 					
 					/*----------------------------------*/
-					i++;
-					filme.setDirecao(listaDeDados.get(i));
-					i++;
-					filme.setAnoLancamento(listaDeDados.get(i));
-					i++;
-					filme.setCopias(Integer.parseInt(listaDeDados.get(i)));
-					i++; //Pula o tipo Filme ou DVD 
+					//i++;
+					filme.setDirecao(listaDeDados.get(i++));
+					//i++;
+					filme.setAnoLancamento(listaDeDados.get(i++));
+					//i++;
+					filme.setCopias(Integer.parseInt(listaDeDados.get(i++)));
+					//i++; //Pula o tipo Filme ou DVD 
 					i++; //inicio do tratamento de categoria
-					categoriaFile = listaDeDados.get(i);
+					categoriaFile = listaDeDados.get(i++);
 					if(categoriaFile.toLowerCase().equals("lançamento")){
 						filme.setCategoria(CategoriaDVD.Lancamento);
 					}else if(categoriaFile.toLowerCase().equals("acervo")){
 						filme.setCategoria(CategoriaDVD.Acervo);
 					}
-					i++;
+					//i++;
 					listaDeFilmes.add(filme);
 					i++; 
 				}
