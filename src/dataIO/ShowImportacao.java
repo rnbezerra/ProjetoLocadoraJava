@@ -25,7 +25,7 @@ public class ShowImportacao {
 		/*Declaração de variáveis */
 		
 		int i = 0;
-		String leitura, dados, categoriaFile;
+		String leitura, /*dados,*/ categoriaFile;
 		//CategoriaDVD categoria;
 		ArrayList<String> listaDeDados = new ArrayList<String>();
 		ArrayList<Show> listaDeShows = new ArrayList<Show>();

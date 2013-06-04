@@ -27,14 +27,7 @@ public class Main {
 	
 	public static void main(String[] param) {
 
-
-		DVD dvd = new DVD("dvd1", "0144", "1", "drama", "1999", CategoriaDVD.Acervo, 8);
-		Filme filme = new Filme("filme1", "078", "4", "ação", "1998", CategoriaDVD.Acervo, 8, "2654", new ArrayList<String>(), "texto sinopse");
-		System.out.println(dvd.getTitulo());
-		dvd = filme;
-		System.out.println(dvd.getTipo());
-		dvd = new Show();
-		System.out.println(dvd.getTipo());
+		ControllerAluguel.teste();
 		
 		/*
 		KeyValueCollection collection = new KeyValueCollection();
