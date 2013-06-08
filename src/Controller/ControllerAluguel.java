@@ -38,7 +38,11 @@ public class ControllerAluguel {
 	*/
 	
 	public static void teste() {
-		realizaAluguel("013", "005005", "04/06/2013", "2.00");
+		realizaAluguel("013", "005005", "30/05/2013", "3.00");
+		
+		System.out.println("\n\n\n");
+		
+		AluguelImportacao.carregarArquivo("013", "005005", "30/05/2013");
 	}
 	
 	public static void realizaAluguel(String codigoDVD, String codigoCliente, String dataAluguel, String valorPago) {
@@ -59,9 +63,7 @@ public class ControllerAluguel {
 		Calendar dataDevolucao = Calendar.getInstance();
 		try {
 			dataDevolucao.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(dataAluguel));
-			int dia = dataDevolucao.get(Calendar.DATE) + dvd.getDiasParaLocacao();
-			
-			dataDevolucao.set(Calendar.DATE, dia);
+			dataDevolucao.add(Calendar.DATE, dvd.getDiasParaLocacao());
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -70,7 +72,7 @@ public class ControllerAluguel {
 		//calculo do preço de locação
 		double saldo = 0,
 				converted = Double.parseDouble(valorPago);
-		if(Double.isNaN(converted)){
+		if(!Double.isNaN(converted)){
 			saldo = converted - dvd.getPrecoLocacao(cliente.getStatus());
 		}
 		
@@ -81,7 +83,7 @@ public class ControllerAluguel {
 		//TODO adicionar o histórico de locação no cliente
 		
 		//TODO chamar método de serialização do alugual
-		AluguelImportacao.salvarAluguel(cliente, dvd, dataAluguel, saldo);
+		AluguelImportacao.salvarAluguel(dvd, cliente, dataAluguel, saldo);
 		
 		ViewAluguel.mostraAluguelRealizado(cliente, dvd, saldo, new SimpleDateFormat("dd/MM/yyyy").format(dataDevolucao.getTime()));
 		

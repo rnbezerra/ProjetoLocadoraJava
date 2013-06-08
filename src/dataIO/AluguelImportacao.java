@@ -1,5 +1,6 @@
 package dataIO;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,35 +11,51 @@ import model.AluguelSerializable;
 import model.Cliente;
 import model.DVD;
 
-public class AlugueImportacao {
+public class AluguelImportacao {
 
+	private static final String PATH = "ALUGUEL";
+	
 	private static Cliente cliente;
 	private static DVD dvd;
 	private static String dataAluguel;
 	private static double valor;
 	
-	public static boolean salvarAluguel(Cliente cliente, DVD dvd, String dataAluguel, double valorPago ) {
+	public static boolean salvarAluguel(DVD dvd, Cliente cliente, String dataAluguel, double valorPago ) {
 		AluguelSerializable serializable = new AluguelSerializable(
 				cliente.getCodigo(), dvd.getCodigo(), dataAluguel, valorPago);
 
 		try {
-			String filename = String.format("ALUGUEL\\ALUGUEL_%s_%s",cliente.getCodigo(), dvd.getCodigo());
+			if(!new File(PATH).exists()){
+				if(!new File(PATH).mkdir())	throw new IOException();
+			}
+			
+			String filename = String.format("%s\\ALUGUEL_%s_%s_%s.quack", PATH, cliente.getCodigo(), dvd.getCodigo(), dataAluguel.replace("/", ""));
 			FileOutputStream fileOutputStream = new FileOutputStream(filename);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			
 			objectOutputStream.writeObject(serializable);
+			
 			objectOutputStream.close();
 			fileOutputStream.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		} 
+
 		return true;
 	}
 
-	public static void carregarArquivo(String filename) {
+	public static void carregarArquivo(String codigoDVD, String codigoCliente, String dataAluguel) {
 		AluguelSerializable aluguelDvd = new AluguelSerializable();
 		try {
+
+			if(!new File(PATH).exists()){
+				new File(PATH).mkdir();
+				throw new IOException();
+			}
 			
+			String filename = String.format("%s\\ALUGUEL_%s_%s_%s.quack", PATH, codigoCliente, codigoDVD, dataAluguel.replace("/", ""));
+					
 			FileInputStream inputStream = new FileInputStream(filename);
 			ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 			aluguelDvd = aluguelDvd.getClass().cast(objectInputStream.readObject());
@@ -49,12 +66,13 @@ public class AlugueImportacao {
 			
 			
 		} catch (IOException i) {
-			i.printStackTrace();
+			System.err.println("Erro na leitura do arquivo.");
+			//i.printStackTrace();
 			return;
 			
 		}catch (ClassNotFoundException c) {
-			System.out.println("Classe Não encontrada");
-			c.printStackTrace();
+			System.err.println("Classe Não encontrada");
+			//c.printStackTrace();
 			return;
 		}		
 		
@@ -71,7 +89,7 @@ public class AlugueImportacao {
 	}
 
 	public static void setCliente(Cliente cliente) {
-		AlugueImportacao.cliente = cliente;
+		AluguelImportacao.cliente = cliente;
 	}
 
 	public static DVD getDvd() {
@@ -79,7 +97,7 @@ public class AlugueImportacao {
 	}
 
 	public static void setDvd(DVD dvd) {
-		AlugueImportacao.dvd = dvd;
+		AluguelImportacao.dvd = dvd;
 	}
 
 	public static String getDataAluguel() {
@@ -87,7 +105,7 @@ public class AlugueImportacao {
 	}
 
 	public static void setDataAluguel(String dataAluguel) {
-		AlugueImportacao.dataAluguel = dataAluguel;
+		AluguelImportacao.dataAluguel = dataAluguel;
 	}
 
 	public static double getValor() {
@@ -95,7 +113,7 @@ public class AlugueImportacao {
 	}
 
 	public static void setValor(double valor) {
-		AlugueImportacao.valor = valor;
+		AluguelImportacao.valor = valor;
 	}
 	
 	

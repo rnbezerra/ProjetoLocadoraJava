@@ -24,6 +24,7 @@ public class ViewAluguel {
 				.append(String.format("Data de devolucao: %s\n", dataDevolucao))
 				.append(String.format("Saldo do Cliente: %s\n",NumberFormat.getCurrencyInstance().format(saldo)))
 				.append(String.format("DVDs disponíveis: %d\n", dvd.getCopias()));
+		System.out.println(mensagem.toString());
 	}
 
 	public static void dadoNaoEncontrado() {
