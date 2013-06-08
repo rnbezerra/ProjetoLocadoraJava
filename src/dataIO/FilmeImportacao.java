@@ -57,36 +57,36 @@ public class FilmeImportacao {
 					Filme filme = new Filme();
 					
 					filme.setTitulo(listaDeDados.get(i++));
-					//i++;
+					
 					filme.setCodigo(listaDeDados.get(i++));
-					//i++;
+					
 					filme.setArea(listaDeDados.get(i++));
-					//i++;
+					
 					filme.setSinopse(listaDeDados.get(i++));
-					//i++;
+					
 					filme.setGenero(listaDeDados.get(i++));
-					//i++;
+					
 					/*Inserindo o elenco como uma lista */
 					
 					listaElenco = new ArrayList<String>(Arrays.asList((listaDeDados.get(i++)).split(", ")));
 					filme.setElenco(listaElenco);
 					
 					/*----------------------------------*/
-					//i++;
+					
 					filme.setDirecao(listaDeDados.get(i++));
-					//i++;
+					
 					filme.setAnoLancamento(listaDeDados.get(i++));
-					//i++;
+					
 					filme.setCopias(Integer.parseInt(listaDeDados.get(i++)));
-					//i++; //Pula o tipo Filme ou DVD 
-					i++; //inicio do tratamento de categoria
+					i++; //Pula o tipo Filme ou DVD 
+					//inicio do tratamento de categoria
 					categoriaFile = listaDeDados.get(i++);
 					if(categoriaFile.toLowerCase().equals("lançamento")){
 						filme.setCategoria(CategoriaDVD.Lancamento);
 					}else if(categoriaFile.toLowerCase().equals("acervo")){
 						filme.setCategoria(CategoriaDVD.Acervo);
 					}
-					//i++;
+					
 					listaDeFilmes.add(filme);
 					i++; 
 				}

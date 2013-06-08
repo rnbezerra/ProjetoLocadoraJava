@@ -1,78 +1,73 @@
 package dataIO;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import model.Artista;
+import model.Personalidade.Sexo;
+
 
 public class AtorArtistaImportacao {
 
-	/*O metodo dadosDiretor abre o arquivo diretor.txt e extrai os seguintes campos utilizando um valor de 
-	 * 1 - 6 como parametro:
-	 * 
-	 * 1 - Codigo do ator
-	 * 2 - Primeiro nome do ator
-	 * 3 - Nome completo do ator
-	 * 4 - Sexo ator
-	 * 5 - Data nascimento ator
-	 * 6 - Codigo dos filmes atuados
-	 * 
-	 * */
-	public static String dadosDiretor(int opcao){
-			
-			File dir = new File("C:\\importacao");
-			File arq = new File(dir, "atorArtista.txt");
-			
-			try{
-				
-				FileReader fileReader = new FileReader(arq);
-				
-				String[] linhaDoArquivo = new BufferedReader(fileReader).readLine().split(";");
-				switch (opcao) {
-				case 1:
-					String codigoAtor = linhaDoArquivo[0];
-					return codigoAtor;
-				
-				case 2:
-					String pNomeAtor = linhaDoArquivo[1];
-					return pNomeAtor;
-					
-				case 3:
-					String nomeCompAtor = linhaDoArquivo[2];
-					return nomeCompAtor;
-					
-				case 4:
-					String sexoAtor = linhaDoArquivo[3];
-					return sexoAtor;
-					
-				case 5:
-					String nascAtor = linhaDoArquivo[4];
-					return nascAtor;
-				
-				case 6:
-					String codFilmesAtor = linhaDoArquivo[5];
-					return codFilmesAtor;
-					
-				default:
-					System.out.println("Escolha um valor entre 1-6");
-					break;
-				}
-				
-				
-				}catch(IOException e){
-					
-					e.getStackTrace();
-					System.out.println("Erro ao obter o código");
-					
-				}
-			return null;
-		} 
-
-	
-	
-	
-	public static void main(String[] args) {
+	public static ArrayList<Artista> listaDeAtoresArtistas(){
+	//public static void main(String[] args) {
 		
-		System.out.println(dadosDiretor(6));
-		// TODO Auto-generated method stub
-
+		ArrayList<Artista> listaDeArtistas = new ArrayList<Artista>();
+		ArrayList<String> listaDeDados = new ArrayList<String>();
+		ArrayList<String> listaDeFilmes = new ArrayList<String>();
+		String[] linhaArtista;
+		String leitura;
+		int i=0;
+		
+		/*------------------------*/
+		
+		File dir = new File("importacao");
+		File arq = new File(dir, "atorArtista.txt");	
+		
+		
+		try{
+		FileReader fileReader = new FileReader(arq);
+				
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		
+		while((leitura = bufferedReader.readLine()) != null){
+			listaDeDados.add(leitura);
+		}
+		
+		bufferedReader.close();
+		
+		while(i != listaDeDados.size()){
+			
+			Artista artista = new Artista();
+			
+			linhaArtista = listaDeDados.get(i).split(";");
+			artista.setCodigo(linhaArtista[0]);
+			artista.setNome(linhaArtista[1]);
+			artista.setNomeCompleto(linhaArtista[2]);
+			
+			//Definição do Sexo do diretor
+			if(linhaArtista[3].toLowerCase().equals("masculino"))
+				artista.setSexo(Sexo.Masculino);
+			else if(linhaArtista[3].toLowerCase().equals("feminino"))
+				artista.setSexo(Sexo.Feminino);
+			
+			artista.setDataNasc(linhaArtista[4]);
+			
+			//Popular Lista de Filmes como uma ArrayList
+			listaDeFilmes = new ArrayList<String>(Arrays.asList((linhaArtista[5]).split(", ")));
+			artista.setFilmes(listaDeFilmes);
+			
+			listaDeArtistas.add(artista);
+			i++;
+		}	
+		}catch(IOException e){
+			
+			e.getStackTrace();
+			
+		}
+		
+		return listaDeArtistas;
 	}
 
 }

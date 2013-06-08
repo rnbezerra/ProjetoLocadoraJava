@@ -90,9 +90,11 @@ public class ClienteImportacao {
 					
 				}
 				
-			}					
-			catch(Exception e){
-				e.getStackTrace();}
+			}catch(Exception e){
+				
+				e.getStackTrace();
+				
+			 }
 			
 			return listaDeClientes;
 

@@ -1,65 +1,88 @@
 package dataIO;
 
 import java.io.*;
+import java.util.*;
+import model.Diretor;
+import model.Personalidade.*;
 
 
 public class DiretorImportacao {
-/*O metodo dadosDiretor abre o arquivo diretor.txt e extrai os seguintes campos utilizando um valor de 
- * 1 - 4 como parametro:
- * 
- * 1 - Codigo do diretor
- * 2 - Nome do diretor
- * 3 - Sexo do diretor
- * 4 - Codigo de filmes dirigidos
- * 
- * */
-public static String dadosDiretor(int opcao){
+	
+	/*
+	 * A classe DiretorImportacao é responsável por obter os dados dos Diretores que estao dentro
+	 * do aquivo diretor.txt na pasta importacao, e retornar uma ArrayList contendo todos os 
+	 * dados dos Diretores. 
+	 * 
+	 * Pela dificuldade gerada ao trabalhar somente com a classe File, preenchi primeiramente uma 
+	 * ArrayList com os dados deste arquivo e trabalhei com estes dados.
+	 * Se fez necessário a utilização de outras ArrayLists para separar os campos e obter os filmes dirigidos 
+	 * como uma arrayList e utiliza-la como parâmetro.
+	 * 
+	 * 
+	 * */
+	
+	
+	public static ArrayList<Diretor> listaDeDiretores(){
+	//public static void main(String args[]){
+		/*Declaração das variaveis*/
 		
-		File dir = new File("C:\\importacao");
+		ArrayList<Diretor> listaDeDiretores = new ArrayList<Diretor>();
+		ArrayList<String> listaDeDados = new ArrayList<String>();
+		ArrayList<String> listaDeFilmes = new ArrayList<String>();
+		String[] linhaDiretor;
+		String leitura;
+		int i=0;
+		
+		/*------------------------*/
+		
+		File dir = new File("importacao");
 		File arq = new File(dir, "diretor.txt");
 		
+				
 		try{
-			
 			FileReader fileReader = new FileReader(arq);
-			
-			String[] linhaDoArquivo = new BufferedReader(fileReader).readLine().split(";");
-			switch (opcao) {
-			case 1:
-				String codigoDir = linhaDoArquivo[0];
-				return codigoDir;
-			
-			case 2:
-				String NomeDir = linhaDoArquivo[1];
-				return NomeDir;
 				
-			case 3:
-				String sexoDir = linhaDoArquivo[2];
-				return sexoDir;
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+					
+			while((leitura = bufferedReader.readLine()) != null){
+				listaDeDados.add(leitura);
+			}			
+			
+			bufferedReader.close();
+			
+			while(i != listaDeDados.size()){
 				
-			case 4:
-				String filmesDir = linhaDoArquivo[3];
-				return filmesDir;
-								
-			default:
-				System.out.println("Escolha um valor entre 1-4");
-				break;
+				Diretor diretor = new Diretor();
+				
+						
+				linhaDiretor = listaDeDados.get(i).split(";");
+				diretor.setCodigo(linhaDiretor[0]);
+				diretor.setNome(linhaDiretor[1]);
+				
+				//Definição do Sexo do diretor
+				if(linhaDiretor[2].toLowerCase().equals("masculino"))
+					diretor.setSexo(Sexo.Masculino);
+				else if(linhaDiretor[2].toLowerCase().equals("feminino"))
+					diretor.setSexo(Sexo.Feminino);
+				
+				//Popular Lista de Filmes como uma ArrayList
+				listaDeFilmes = new ArrayList<String>(Arrays.asList((linhaDiretor[3]).split(", ")));
+				diretor.setFilmesDirigidos(listaDeFilmes);
+				
+				listaDeDiretores.add(diretor);
+				i++;
 			}
 			
-			}catch(IOException e){
-				
+		}catch(IOException e){
+			
 				e.getStackTrace();
-				System.out.println("Erro em obter o código");
-				
+			
 			}
-		return null;
-	} 
-	
-	public static void main(String[] args) {
 		
-		
-		System.out.println(dadosDiretor(1));
-		// TODO Auto-generated method stub
-
+		return listaDeDiretores;	
 	}
-
-}
+	
+	
+	
+}	
+	
