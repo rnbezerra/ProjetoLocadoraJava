@@ -10,6 +10,7 @@ public class HistoricoLocacao{
 	private String codigoDVD;
 	private Calendar dataLocacao;
 	private Calendar dataDevolucao;
+	private boolean devolvido;
 	
 	public HistoricoLocacao() {
 	}
@@ -102,6 +103,14 @@ public class HistoricoLocacao{
 		} catch (ParseException e) {
 			return false;
 		}  
+	}
+
+	public boolean isDevolvido() {
+		return devolvido;
+	}
+
+	public void setDevolvido(boolean devolvido) {
+		this.devolvido = devolvido;
 	}
 	
 	
