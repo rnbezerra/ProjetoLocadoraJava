@@ -96,8 +96,7 @@ public class ControllerAluguel {
 		if(!AluguelImportacao.carregarArquivo(dvd.getCodigo(), cliente.getCodigo(), dataAluguel)){
 			ViewAluguel.dadoNaoEncontrado();
 						
-		}
-				
+		}				
 		
 		//calculo do preço de locação
 		double saldo = 0,
