@@ -13,26 +13,37 @@ import br.com.locadora.model.DVD;
 
 public class Serializer<E> {
 
+	private final String PATH = "SERIALIZADO";
+	private E object;
+	private Class<?> classtype;
 	
-
 	/*
 	#### METODOS PÚBLICOS ####
 	*/
-	/*
-	public static boolean salvarAluguel(DVD dvd, Cliente cliente, String dataAluguel, double valorPago ) {
-		AluguelSerializable serializable = new AluguelSerializable(
-				cliente.getCodigo(), dvd.getCodigo(), dataAluguel, valorPago);
-
+	
+	protected Serializer<E> using(E object){
+		this.object = object;
+		classtype = object.getClass();
+		return this;
+	}
+	
+	protected E getObject(){
+		return object;
+	}
+	
+	protected boolean salvarArquivo(String filename) {
+		String classname = classtype.getSimpleName().toUpperCase();
+		
 		try {
 			if(!new File(PATH).exists()){
-				if(!new File(PATH).mkdir())	throw new IOException();
+				if(!new File(PATH).mkdir()) throw new IOException();
 			}
 			
-			String filename = String.format("%s\\ALUGUEL_%s_%s_%s.quack", PATH, cliente.getCodigo(), dvd.getCodigo(), dataAluguel.replace("/", ""));
+			filename = String.format("%s\\%s_%s.quack", PATH, classname, filename);
 			FileOutputStream fileOutputStream = new FileOutputStream(filename);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			
-			objectOutputStream.writeObject(serializable);
+			objectOutputStream.writeObject(object);
 			
 			objectOutputStream.close();
 			fileOutputStream.close();
@@ -43,39 +54,25 @@ public class Serializer<E> {
 
 		return true;
 	}
-
-	public static boolean carregarArquivo(String codigoDVD, String codigoCliente, String dataAluguel) {
-		AluguelSerializable aluguelDvd = new AluguelSerializable();
+	
+	protected boolean carregarArquivo(String filename) {
+		String classname = classtype.getSimpleName().toUpperCase();
+		
 		try {
-
 			if(!new File(PATH).exists()){
 				new File(PATH).mkdir();
 				throw new IOException();
 			}
 			
-			String filename = String.format("%s\\ALUGUEL_%s_%s_%s.quack", PATH, codigoCliente, codigoDVD, dataAluguel.replace("/", ""));
+			filename = String.format("%s\\%s_%s.quack", PATH, classname, filename);
 					
 			FileInputStream inputStream = new FileInputStream(filename);
 			ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-			aluguelDvd = aluguelDvd.getClass().cast(objectInputStream.readObject());
-			
+			//object = object.getClass().cast(objectInputStream.readObject());
+			object = (E) objectInputStream.readObject();
+			//AluguelSerializable a = (AluguelSerializable) objectInputStream.readObject();
 			objectInputStream.close();
 			inputStream.close();
-			
-
-			AluguelImportacao.codigoCliente = aluguelDvd.getCodigoCliente();
-			AluguelImportacao.codigoDvd = aluguelDvd.getCodigoDVD();
-			AluguelImportacao.dataAluguel = aluguelDvd.getDataLocacao();
-			AluguelImportacao.valor = aluguelDvd.getValorPago();
-			
-			System.out.println("Objeto carregado...");
-			System.out.println("Codigo Cliente: " + aluguelDvd.getCodigoCliente());
-			System.out.println("Codigo DVD: " + aluguelDvd.getCodigoDVD());
-			System.out.println("Data de Aluguel: " + aluguelDvd.getDataLocacao());
-			System.out.println("Valor Pago: R$" + aluguelDvd.getValorPago());
-			System.out.println();
-			
-			//TODO detelar arquivo após importação
 			
 			return true;
 			
@@ -88,20 +85,10 @@ public class Serializer<E> {
 			System.err.println("Classe Não encontrada");
 			//c.printStackTrace();
 			return false;
-		}		
-		
-	}*/
-	
-	public void teste() {
-		getPath();
+		}
 	}
 	
 	/*
 	#### METODOS PRIVADOS ####
 	*/
-	
-	private static String getPath() {
-		
-		return "";
-	}
 }

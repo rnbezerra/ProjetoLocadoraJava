@@ -21,16 +21,13 @@ import br.com.locadora.utils.KeyValue;
 import br.com.locadora.utils.KeyValueCollection;
 
 
-
-
-
 public class Main {
 	
 	
 	public static void main(String[] param) {
 
 		ControllerAluguel.teste();
-		
+				
 		/*
 		KeyValueCollection collection = new KeyValueCollection();
 		collection.addKeyValuesFromArray(param);
