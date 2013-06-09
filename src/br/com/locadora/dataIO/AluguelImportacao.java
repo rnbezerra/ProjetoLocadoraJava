@@ -1,4 +1,4 @@
-package dataIO;
+package br.com.locadora.dataIO;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,9 +7,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import model.AluguelSerializable;
-import model.Cliente;
-import model.DVD;
+import br.com.locadora.model.AluguelSerializable;
+import br.com.locadora.model.Cliente;
+import br.com.locadora.model.DVD;
+
 
 public class AluguelImportacao {
 

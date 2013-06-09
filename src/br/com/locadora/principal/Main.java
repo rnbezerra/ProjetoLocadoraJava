@@ -1,4 +1,4 @@
-package principal;
+package br.com.locadora.principal;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,17 +7,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import controller.ControllerAluguel;
-import model.AluguelSerializable;
-import model.Cliente;
-import model.DVD;
-import model.Filme;
-import model.Show;
-import model.DVD.CategoriaDVD;
-import model.DVD.TipoDVD;
-import model.HistoricoLocacao;
-import projectUtils.KeyValue;
-import projectUtils.KeyValueCollection;
+import br.com.locadora.controller.ControllerAluguel;
+import br.com.locadora.model.AluguelSerializable;
+import br.com.locadora.model.Cliente;
+import br.com.locadora.model.DVD;
+import br.com.locadora.model.Filme;
+import br.com.locadora.model.HistoricoLocacao;
+import br.com.locadora.model.Show;
+import br.com.locadora.model.DVD.CategoriaDVD;
+import br.com.locadora.model.DVD.TipoDVD;
+import br.com.locadora.utils.KeyValue;
+import br.com.locadora.utils.KeyValueCollection;
+
 
 
 

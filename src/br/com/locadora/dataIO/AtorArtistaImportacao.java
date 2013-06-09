@@ -1,11 +1,12 @@
-package dataIO;
+package br.com.locadora.dataIO;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import model.Artista;
-import model.Personalidade.Sexo;
+import br.com.locadora.model.Artista;
+import br.com.locadora.model.Personalidade.Sexo;
+
 
 
 public class AtorArtistaImportacao {

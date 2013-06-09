@@ -1,9 +1,10 @@
-package dataIO;
+package br.com.locadora.dataIO;
 
 import java.io.*;
 import java.util.*;
-import model.Diretor;
-import model.Personalidade.*;
+
+import br.com.locadora.model.Diretor;
+import br.com.locadora.model.Personalidade.*;
 
 
 public class DiretorImportacao {

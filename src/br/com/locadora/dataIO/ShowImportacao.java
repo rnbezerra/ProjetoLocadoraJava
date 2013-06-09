@@ -1,9 +1,10 @@
-package dataIO;
+package br.com.locadora.dataIO;
 
 import java.io.*;
 import java.util.*;
-import model.DVD.CategoriaDVD;
-import model.Show;
+
+import br.com.locadora.model.Show;
+import br.com.locadora.model.DVD.CategoriaDVD;
 
 
 public class ShowImportacao {

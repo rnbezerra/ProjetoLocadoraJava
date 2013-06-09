@@ -1,9 +1,10 @@
-package view;
+package br.com.locadora.view;
 
 import java.text.NumberFormat;
 
-import model.Cliente;
-import model.DVD;
+import br.com.locadora.model.Cliente;
+import br.com.locadora.model.DVD;
+
 
 public class ViewAluguel {
 

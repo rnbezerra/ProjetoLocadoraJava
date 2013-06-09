@@ -1,4 +1,4 @@
-package controller;
+package br.com.locadora.controller;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,20 +17,21 @@ import javax.swing.text.View;
 
 import org.w3c.dom.ls.LSInput;
 
-import dataIO.AluguelImportacao;
-import dataIO.ClienteImportacao;
-import dataIO.FilmeImportacao;
-import dataIO.ShowImportacao;
+import br.com.locadora.dataIO.AluguelImportacao;
+import br.com.locadora.dataIO.ClienteImportacao;
+import br.com.locadora.dataIO.FilmeImportacao;
+import br.com.locadora.dataIO.ShowImportacao;
+import br.com.locadora.model.AluguelSerializable;
+import br.com.locadora.model.Cliente;
+import br.com.locadora.model.DVD;
+import br.com.locadora.model.Filme;
+import br.com.locadora.model.HistoricoLocacao;
+import br.com.locadora.model.Show;
+import br.com.locadora.model.DVD.TipoDVD;
+import br.com.locadora.view.ViewAluguel;
 
-import model.AluguelSerializable;
-import model.Cliente;
-import model.DVD;
-import model.DVD.TipoDVD;
-import model.Filme;
-import model.HistoricoLocacao;
-import model.Show;
 
-import view.ViewAluguel;
+
 
 public class ControllerAluguel {
 	/*

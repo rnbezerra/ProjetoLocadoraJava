@@ -1,4 +1,4 @@
-package projectUtils;
+package br.com.locadora.utils;
 
 public class KeyValue {
 	

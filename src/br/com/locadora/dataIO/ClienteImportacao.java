@@ -1,11 +1,12 @@
-package dataIO;
+package br.com.locadora.dataIO;
 
 import java.io.*;
 
-import model.Cliente;
-import model.HistoricoLocacao;
 
 import java.util.*;
+
+import br.com.locadora.model.Cliente;
+import br.com.locadora.model.HistoricoLocacao;
 
 
 public class ClienteImportacao {

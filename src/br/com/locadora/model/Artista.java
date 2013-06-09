@@ -1,4 +1,4 @@
-package model;
+package br.com.locadora.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
