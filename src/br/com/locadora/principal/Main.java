@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import br.com.locadora.controller.ControllerAluguel;
+import br.com.locadora.dataIO.Serializer;
 import br.com.locadora.model.AluguelSerializable;
 import br.com.locadora.model.Cliente;
 import br.com.locadora.model.DVD;

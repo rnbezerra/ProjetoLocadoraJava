@@ -1,33 +1,17 @@
 package br.com.locadora.controller;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream.GetField;
-import java.lang.reflect.Array;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
-import javax.swing.text.View;
-
-import org.w3c.dom.ls.LSInput;
-
 import br.com.locadora.dataIO.AluguelImportacao;
 import br.com.locadora.dataIO.ClienteImportacao;
 import br.com.locadora.dataIO.FilmeImportacao;
 import br.com.locadora.dataIO.ShowImportacao;
-import br.com.locadora.model.AluguelSerializable;
 import br.com.locadora.model.Cliente;
 import br.com.locadora.model.DVD;
-import br.com.locadora.model.Filme;
 import br.com.locadora.model.HistoricoLocacao;
-import br.com.locadora.model.Show;
-import br.com.locadora.model.DVD.TipoDVD;
 import br.com.locadora.view.ViewAluguel;
 
 
