@@ -105,6 +105,7 @@ public class DVD {
 
 	public void setCopias(int copias) {
 		this.copias = copias;
+		if(this.copias < 0) this.copias = 0; 
 	}
 	
 	public int getDiasParaLocacao() {

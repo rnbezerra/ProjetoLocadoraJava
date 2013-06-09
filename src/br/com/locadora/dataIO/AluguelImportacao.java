@@ -12,15 +12,32 @@ import br.com.locadora.model.Cliente;
 import br.com.locadora.model.DVD;
 
 
+
 public class AluguelImportacao {
 
 	private static final String PATH = "ALUGUEL";
 	
-	private static Cliente cliente;
-	private static DVD dvd;
+	private static String codigoCliente;
+	private static String codigoDvd;
 	private static String dataAluguel;
 	private static double valor;
 	
+	public static String getCodigoCliente() {
+		return codigoCliente;
+	}
+
+	public static String getCodigoDvd() {
+		return codigoDvd;
+	}
+
+	public static String getDataAluguel() {
+		return dataAluguel;
+	}
+
+	public static double getValor() {
+		return valor;
+	}
+
 	public static boolean salvarAluguel(DVD dvd, Cliente cliente, String dataAluguel, double valorPago ) {
 		AluguelSerializable serializable = new AluguelSerializable(
 				cliente.getCodigo(), dvd.getCodigo(), dataAluguel, valorPago);
@@ -46,7 +63,7 @@ public class AluguelImportacao {
 		return true;
 	}
 
-	public static void carregarArquivo(String codigoDVD, String codigoCliente, String dataAluguel) {
+	public static boolean carregarArquivo(String codigoDVD, String codigoCliente, String dataAluguel) {
 		AluguelSerializable aluguelDvd = new AluguelSerializable();
 		try {
 
@@ -64,59 +81,35 @@ public class AluguelImportacao {
 			objectInputStream.close();
 			inputStream.close();
 			
+
+			AluguelImportacao.codigoCliente = aluguelDvd.getCodigoCliente();
+			AluguelImportacao.codigoDvd = aluguelDvd.getCodigoDVD();
+			AluguelImportacao.dataAluguel = aluguelDvd.getDataLocacao();
+			AluguelImportacao.valor = aluguelDvd.getValorPago();
 			
+			System.out.println("Objeto carregado...");
+			System.out.println("Codigo Cliente: " + aluguelDvd.getCodigoCliente());
+			System.out.println("Codigo DVD: " + aluguelDvd.getCodigoDVD());
+			System.out.println("Data de Aluguel: " + aluguelDvd.getDataLocacao());
+			System.out.println("Valor Pago: R$" + aluguelDvd.getValorPago());
+			System.out.println();
+			
+			//TODO detelar arquivo após importação
+			
+			return true;
 			
 		} catch (IOException i) {
 			System.err.println("Erro na leitura do arquivo.");
 			//i.printStackTrace();
-			return;
+			return false;
 			
 		}catch (ClassNotFoundException c) {
 			System.err.println("Classe Não encontrada");
 			//c.printStackTrace();
-			return;
+			return false;
 		}		
 		
-		System.out.println("Objeto carregado...");
-		System.out.println("Codigo Cliente: " + aluguelDvd.getCodigoCliente());
-		System.out.println("Codigo DVD: " + aluguelDvd.getCodigoDVD());
-		System.out.println("Data de Aluguel: " + aluguelDvd.getDataLocacao());
-		System.out.println("Valor Pago: R$" + aluguelDvd.getValorPago());
-		
 	}
-
-	public static Cliente getCliente() {
-		return cliente;
-	}
-
-	public static void setCliente(Cliente cliente) {
-		AluguelImportacao.cliente = cliente;
-	}
-
-	public static DVD getDvd() {
-		return dvd;
-	}
-
-	public static void setDvd(DVD dvd) {
-		AluguelImportacao.dvd = dvd;
-	}
-
-	public static String getDataAluguel() {
-		return dataAluguel;
-	}
-
-	public static void setDataAluguel(String dataAluguel) {
-		AluguelImportacao.dataAluguel = dataAluguel;
-	}
-
-	public static double getValor() {
-		return valor;
-	}
-
-	public static void setValor(double valor) {
-		AluguelImportacao.valor = valor;
-	}
-	
 	
 
 }

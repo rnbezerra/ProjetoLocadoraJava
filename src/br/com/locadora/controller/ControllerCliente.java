@@ -2,7 +2,7 @@ package br.com.locadora.controller;
 
 public class ControllerCliente {
 
-	private static void realizarBusca() {
+	public static void realizarBusca(String codigo) {
 		
 	}
 }

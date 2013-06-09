@@ -21,6 +21,7 @@ public class HistoricoLocacao{
 		this.codigoDVD = codigoDVD;
 		this.dataLocacao = dataLocacao;
 		this.dataDevolucao = dataDevolucao;
+		this.devolvido = true;
 	}
 
 	public HistoricoLocacao(String codigoDVD, String dataLocacao,
@@ -29,6 +30,15 @@ public class HistoricoLocacao{
 		this.codigoDVD = codigoDVD;
 		this.setDataLocacao(dataLocacao);
 		this.setDataDevolucao(dataDevolucao);
+		this.devolvido = true;
+	}
+
+	public HistoricoLocacao(String codigoDVD, String dataLocacao,
+			boolean devolvido) {
+		super();
+		this.codigoDVD = codigoDVD;
+		this.setDataLocacao(dataLocacao);
+		this.devolvido = devolvido;
 	}
 
 	public String getCodigoDVD() {

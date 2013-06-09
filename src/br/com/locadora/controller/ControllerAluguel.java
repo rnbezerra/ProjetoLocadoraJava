@@ -38,29 +38,34 @@ public class ControllerAluguel {
 	#### METODOS PÚBLICOS ####
 	*/
 	
+	private static ArrayList<Cliente> listaGeralClientes = new ArrayList<Cliente>();
+	private static ArrayList<DVD> listaGeralDVDs = new ArrayList<DVD>();
+	
+	
 	public static void teste() {
-		realizaAluguel("013", "005005", "30/05/2013", "3.00");
-		
-		System.out.println("\n\n\n");
-		
-		AluguelImportacao.carregarArquivo("013", "005005", "30/05/2013");
+		realizaAluguel("009", "003003", "02/03/2005", "2.00");
+				
+		realizarDevolucao("009", "003003", "02/03/2005", "4.00");
 	}
 	
 	public static void realizaAluguel(String codigoDVD, String codigoCliente, String dataAluguel, String valorPago) {
 		
 		Cliente cliente;
 		DVD dvd;
-				
+		
+		//busca cliente e dvd
 		if((cliente = getCliente(codigoCliente)) == null || (dvd = getDVD(codigoDVD)) == null){
 			ViewAluguel.dadoNaoEncontrado();
 			return;
 		}
 		
+		//verifica se o nº de copias é igual a zero
 		if(dvd.getCopias() == 0){
 			ViewAluguel.copiasIndisponiveis(dvd);
 			return;
 		}
 		
+		//calcula data de devoluçao
 		Calendar dataDevolucao = Calendar.getInstance();
 		try {
 			dataDevolucao.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(dataAluguel));
@@ -80,10 +85,12 @@ public class ControllerAluguel {
 
 		//Decremento do número de copias em função do aluguel e uma copia
 		dvd.setCopias(dvd.getCopias()-1);
-
-		//TODO adicionar o histórico de locação no cliente
+		//TODO salvar lista de dvds em arquivo
 		
-		//TODO chamar método de serialização do alugual
+		//Adiciona novo alugal à lista de historico de locações
+		cliente.addHistoricoLocacao(new HistoricoLocacao(codigoDVD, dataAluguel, false));
+		//TODO salvar lista de clientes em arquivo
+				
 		AluguelImportacao.salvarAluguel(dvd, cliente, dataAluguel, saldo);
 		
 		ViewAluguel.mostraAluguelRealizado(cliente, dvd, saldo, new SimpleDateFormat("dd/MM/yyyy").format(dataDevolucao.getTime()));
@@ -95,32 +102,54 @@ public class ControllerAluguel {
 		Cliente cliente;
 		DVD dvd;
 				
+		//busca cliente e dvd
 		if((cliente = getCliente(codigoCliente)) == null || (dvd = getDVD(codigoDVD)) == null){
 			ViewAluguel.dadoNaoEncontrado();
 			return;
 		}
 		
-		if(dvd.getCopias() == 0){
-			ViewAluguel.copiasIndisponiveis(dvd);
-			return;
+		//Carrega arquivo do aluguel de acordo com cliente e dvd
+		if(!AluguelImportacao.carregarArquivo(dvd.getCodigo(), cliente.getCodigo(), dataAluguel)){
+			ViewAluguel.dadoNaoEncontrado();
+						
 		}
+				
 		
 		//calculo do preço de locação
 		double saldo = 0,
-				converted = Double.parseDouble(valorPago);
-		if(Double.isNaN(converted)){
-			saldo = converted - dvd.getPrecoLocacao(cliente.getStatus());
+				valorPagoDouble = Double.parseDouble(valorPago);
+		if(!Double.isNaN(valorPagoDouble)){
+			saldo = valorPagoDouble + AluguelImportacao.getValor();
 		}
+		
+
+		dvd.setCopias(dvd.getCopias()+1);
+		//TODO salvar lista de dvds em arquivo
+		
+		//insere a data de devolução no historico de locações
+		cliente.getHistoricoLocacao()
+			.getByCodigoDvdDataLocacao(codigoDVD, dataAluguel)
+			.setDataLocacao(dataAluguel);
+		cliente.getHistoricoLocacao()
+			.getByCodigoDvdDataLocacao(codigoDVD, dataAluguel)
+			.setDevolvido(true);
+
+		//TODO salvar lista de clientes em arquivo
+		
+		Date now = Calendar.getInstance().getTime();
+		
+		ViewAluguel.mostraAluguelDevolvido(cliente, dvd, saldo, dataAluguel, new SimpleDateFormat("dd/MM/yyyy").format(now));
+		
 	}
 	/*
 	#### METODOS PRIVADOS ####
 	*/
 	private static Cliente getCliente(String codigo) {
-		ArrayList<Cliente> lista = new ArrayList<Cliente>();
-		//TODO carregar lista de clientes a partir do arquivo
-		lista = ClienteImportacao.clienteImportacao();
+//		ArrayList<Cliente> lista = new ArrayList<Cliente>();
+		
+		listaGeralClientes = ClienteImportacao.clienteImportacao();
 			
-		for (Cliente cliente : lista) {
+		for (Cliente cliente : listaGeralClientes) {
 			if(cliente.getCodigo().equals(codigo)) return cliente; 
 		}
 		
@@ -128,12 +157,11 @@ public class ControllerAluguel {
 	}
 	
 	private static DVD getDVD(String codigo) {
-		ArrayList<DVD> lista = new ArrayList<DVD>();
-		//TODO carregar lista de DVDs a partir do arquivo
-		//lista.addAll(FilmeImportacao.listaDeFilmes());
-		lista.addAll(ShowImportacao.listaDeShows());
 		
-		for (DVD dvd : lista) {
+		listaGeralDVDs.addAll(FilmeImportacao.listaDeFilmes());
+		listaGeralDVDs.addAll(ShowImportacao.listaDeShows());
+		
+		for (DVD dvd : listaGeralDVDs) {
 			if(dvd.getCodigo().equals(codigo)) return dvd;
 		}
 		
