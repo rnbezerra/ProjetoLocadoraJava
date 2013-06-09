@@ -80,7 +80,12 @@ public class ClienteImportacao {
 							historico = listaDeDados.get(i).split(" ");
 							hisLoc.setCodigoDVD(historico[0]);
 							hisLoc.setDataLocacao(historico[1]);
-							hisLoc.setDataDevolucao(historico[2]);
+							if((historico.length) > 2){//Se o historico tem tamanho 3, significa que há registro de devolução
+								hisLoc.setDataDevolucao(historico[2]);
+								hisLoc.setDevolvido(true);
+							}else{
+								hisLoc.setDevolvido(false);
+							}
 							c.addHistoricoLocacao(hisLoc);							
 							i++;
 						}
