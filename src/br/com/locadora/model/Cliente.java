@@ -12,40 +12,28 @@ public class Cliente {
 	private String endereco;
 	private String cep;
 	private String telefone;
+	private double saldo;
 	private HistoricoLocacaoCollection historicoLocacao;
 	
 	
 	public Cliente() {
 		this.historicoLocacao = new HistoricoLocacaoCollection();
 	}
-	
-	/*
-	 * Construtor
-	 * */
+		
 	public Cliente(String nome, String codigo, String cpf, String endereco,
-			String cep, String telefone) {
-		this.nome = nome;
-		this.codigo = codigo;
-		this.cpf = cpf;
-		this.endereco = endereco;
-		this.cep = cep;
-		this.telefone = telefone;
-		this.historicoLocacao = new HistoricoLocacaoCollection();
-	}
-	
-	public Cliente(String nome, String codigo, String cpf, String endereco,
-			String cep, String telefone,
+			String cep, String telefone, double saldo,
 			HistoricoLocacaoCollection historicoLocacao) {
+		super();
 		this.nome = nome;
 		this.codigo = codigo;
 		this.cpf = cpf;
 		this.endereco = endereco;
 		this.cep = cep;
 		this.telefone = telefone;
-		this.historicoLocacao = new HistoricoLocacaoCollection();
+		this.setSaldo(saldo);
 		this.historicoLocacao = historicoLocacao;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -92,6 +80,14 @@ public class Cliente {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 
 	public HistoricoLocacaoCollection getHistoricoLocacao() {

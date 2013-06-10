@@ -7,10 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import br.com.locadora.model.AluguelSerializable;
-import br.com.locadora.model.Cliente;
-import br.com.locadora.model.DVD;
-
 public class Serializer<E> {
 
 	private final String PATH = "SERIALIZADO";

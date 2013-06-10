@@ -5,18 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
 import br.com.locadora.controller.ControllerAluguel;
-import br.com.locadora.dataIO.Serializer;
+import br.com.locadora.controller.ControllerCliente;
 import br.com.locadora.model.AluguelSerializable;
-import br.com.locadora.model.Cliente;
-import br.com.locadora.model.DVD;
-import br.com.locadora.model.Filme;
-import br.com.locadora.model.HistoricoLocacao;
-import br.com.locadora.model.Show;
-import br.com.locadora.model.DVD.CategoriaDVD;
-import br.com.locadora.model.DVD.TipoDVD;
 import br.com.locadora.utils.KeyValue;
 import br.com.locadora.utils.KeyValueCollection;
 
@@ -26,7 +17,7 @@ public class Main {
 	
 	public static void main(String[] param) {
 
-		ControllerAluguel.teste();
+		ControllerCliente.teste();
 				
 		/*
 		KeyValueCollection collection = new KeyValueCollection();

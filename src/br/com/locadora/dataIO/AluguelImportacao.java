@@ -1,12 +1,5 @@
 package br.com.locadora.dataIO;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import br.com.locadora.model.AluguelSerializable;
 import br.com.locadora.model.Cliente;
 import br.com.locadora.model.DVD;
