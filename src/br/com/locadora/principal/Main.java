@@ -5,8 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import br.com.locadora.controller.ControllerAluguel;
-import br.com.locadora.controller.ControllerCliente;
+import br.com.locadora.controller.ControllerDVD;
 import br.com.locadora.model.AluguelSerializable;
 import br.com.locadora.utils.KeyValue;
 import br.com.locadora.utils.KeyValueCollection;
@@ -17,7 +16,8 @@ public class Main {
 	
 	public static void main(String[] param) {
 
-		ControllerCliente.teste();
+		//ControllerCliente.teste();
+		ControllerDVD.teste();
 				
 		/*
 		KeyValueCollection collection = new KeyValueCollection();
@@ -128,6 +128,6 @@ public class Main {
 			System.out.println(keyValue.getKeyValue());
 		}
 	}
-
+	
 }
 

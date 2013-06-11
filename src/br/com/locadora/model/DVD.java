@@ -80,7 +80,13 @@ public class DVD {
 	}
 	
 	public String getCategoriaAsString() {
-		return this.categoria.toString().toLowerCase();
+		switch (this.categoria) {
+		case Lancamento:
+			return "Lançamento";
+		case Acervo:
+		default:
+			return "Acervo";
+		}
 	}
 
 	public void setCategoria(CategoriaDVD categoria) {

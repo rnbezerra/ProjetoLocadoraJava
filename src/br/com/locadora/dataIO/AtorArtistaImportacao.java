@@ -38,7 +38,7 @@ public class AtorArtistaImportacao {
 		
 		bufferedReader.close();
 		
-		while(i != listaDeDados.size()){
+		while(i < listaDeDados.size()){
 			
 			Artista artista = new Artista();
 			

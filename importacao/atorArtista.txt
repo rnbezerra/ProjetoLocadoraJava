@@ -3,7 +3,7 @@
 08;Angelina Jolie;Angelina Jolie Voight;Feminino;04/06/1975;004;
 12;Brad Pitt;William Bradley Pitt;Masculino;11/11/1962;004, 006;
 15;Julia Roberts;Julie Fiona Roberts;Feminino;28/10/1967;006, 007, 008;
-17;Richard Gere;Richard Gere;Masculino 31/08/1949;007, 008;
+17;Richard Gere;Richard Gere;Masculino;31/08/1949;007, 008;
 18;Leonardo Di Caprio;Leonardo Wilhelm diCaprio;Masculino;11/11/1974;010, 012;
 10;Celine Dion;Céline M. Claudette Dione;Feminino;30/03/1968;013;
 19;Maria Rita;Maria Rita Mariano;Feminino;09/09/1977;014;
