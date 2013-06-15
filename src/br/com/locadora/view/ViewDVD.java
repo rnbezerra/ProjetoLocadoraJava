@@ -25,7 +25,7 @@ public class ViewDVD {
 		StringBuilder mensagem = new StringBuilder();
 		mensagem.append("filme;\n")
 				.append(String.format("%s;%s;%s;%s;\n", filme.getCodigo(), filme.getTitulo(), filme.getArea(), filme.getGenero()))
-				.append(String.format("%s\n", filme.getSinopse() ));
+				.append(String.format("%s;\n", filme.getSinopse() ));
 		
 		for (String codArtista : filme.getElenco()) {
 			mensagem.append(String.format("%s-%s|", codArtista, personalidades.get(codArtista).getNome()));
@@ -35,7 +35,7 @@ public class ViewDVD {
 		mensagem.append(";\n");
 		
 		mensagem.append(String.format("%s-%s;\n", filme.getDirecao(), nomeDiretor))
-				.append(String.format("%s;%s\n", filme.getAnoLancamento(), filme.getCategoriaAsString()))
+				.append(String.format("%s;%s;\n", filme.getAnoLancamento(), filme.getCategoriaAsString()))
 				.append(String.format("%d;\n", filme.getCopias()));
 		
 		System.out.println(mensagem.toString());
@@ -55,7 +55,7 @@ public class ViewDVD {
 		StringBuilder mensagem = new StringBuilder();
 		mensagem.append("show;\n")
 				.append(String.format("%s;%s;%s;%s;\n", show.getCodigo(), show.getTitulo(), show.getArea(), show.getGenero()))
-				.append(String.format("%s\n", show.getFaixas() ))
+				.append(String.format("%s;\n", show.getFaixas() ))
 				.append(String.format("%s;", show.getArtista()))
 				.append(String.format("%s;%s;\n", show.getAnoLancamento(), show.getCategoriaAsString()))
 				.append(String.format("%d;", show.getCopias()));

@@ -27,8 +27,9 @@ public class ControllerDVD {
 		
 		HashMap<String, String> hash = new HashMap<String, String>();
 		//hash.put("t", "show");
+		hash.put("p", "tom");
 		hash.put("t", "filme");
-		listaDVDs("tom", hash);
+		listaDVDs(hash);
 	}
 
 	public static void realizarBusca(String codigo) {
@@ -51,13 +52,16 @@ public class ControllerDVD {
 		else ViewDVD.dadoNaoEncontrado();
 	}
 	
-	public static void listaDVDs(String queryString, HashMap<String, String> optionalParameters) {
+	public static void listaDVDs(HashMap<String, String> parameters) {
 		
 		ArrayList<DVD> lista = getDVDs();
 		ArrayList<DVD> matchedDVDs = new ArrayList<DVD>();
 		HashMap<String, Personalidade> personalidades = getPersonalidades();				
 		
-		queryString = queryString.toLowerCase();
+		
+		String keyWord = "";
+		if(parameters.containsKey("p")) keyWord = parameters.get("p"); 
+
 		
 		for (DVD dvd : lista) {
 
@@ -69,7 +73,7 @@ public class ControllerDVD {
 			if(lista.size() > 0){
 				//verifica se o titulo do DVD possia a queryString
 				//se tiver o DVD permanesse na lista, senão...
-				if(dvd.getTitulo().toLowerCase().indexOf(queryString) == -1){
+				if(dvd.getTitulo().toLowerCase().indexOf(keyWord) == -1){
 					
 					
 					//verifica se o tipo do dvd é filme
@@ -79,10 +83,10 @@ public class ControllerDVD {
 						Filme filme = getFilme(dvd.getCodigo());
 						//verifica se o filme tem o diretor com o nome na queryString
 						//se tiver o DVD permanesse na lista, senão... 
-						if(getDiretor(filme.getDirecao()).getNome().toLowerCase().indexOf(queryString) == -1){
+						if(getDiretor(filme.getDirecao()).getNome().toLowerCase().indexOf(keyWord) == -1){
 							//verifica se algum dos atores no elenco do filme tem o nome compativel com a queryString
 							for (String codArtista : filme.getElenco()) {
-								if(personalidades.get(codArtista).getNome().toLowerCase().indexOf(queryString) != -1){
+								if(personalidades.get(codArtista).getNome().toLowerCase().indexOf(keyWord) != -1){
 									queryMatch = true;
 									break;
 								}
@@ -98,7 +102,7 @@ public class ControllerDVD {
 						
 						Show show = getShow(dvd.getCodigo());
 						
-						if(personalidades.get(show.getArtista()).getNome().toLowerCase().indexOf(queryString) == -1){
+						if(personalidades.get(show.getArtista()).getNome().toLowerCase().indexOf(keyWord) == -1){
 							continue;
 						}
 					}
@@ -109,36 +113,36 @@ public class ControllerDVD {
 			else break;
 
 			//TODO filtro por ano de lançamento
-			if(optionalParameters.containsKey("y") && lista.size() > 0){
-				if(!dvd.getAnoLancamento().equals(optionalParameters.get("y"))){//exclui dvd
+			if(parameters.containsKey("y") && lista.size() > 0){
+				if(!dvd.getAnoLancamento().equals(parameters.get("y"))){//exclui dvd
 					continue;
 				}
 			}
 			
 			//TODO filtro por genero
-			if(optionalParameters.containsKey("g") && lista.size() > 0){
-				if(!dvd.getGenero().equalsIgnoreCase(optionalParameters.get("g"))){//exclui dvd
+			if(parameters.containsKey("g") && lista.size() > 0){
+				if(!dvd.getGenero().equalsIgnoreCase(parameters.get("g"))){//exclui dvd
 					continue;
 				}
 			}
 			
 			//TODO filtro por area
-			if(optionalParameters.containsKey("a") && lista.size() > 0){
-				if(!dvd.getArea().equals(optionalParameters.get("a"))){//exclui dvd
+			if(parameters.containsKey("a") && lista.size() > 0){
+				if(!dvd.getArea().equals(parameters.get("a"))){//exclui dvd
 					continue;
 				}
 			}
 			
 			//TODO filtro por tipo de dvd
-			if(optionalParameters.containsKey("t") && lista.size() > 0){
-				if(!dvd.getTipoAsString().equalsIgnoreCase(optionalParameters.get("t"))){//exclui dvd
+			if(parameters.containsKey("t") && lista.size() > 0){
+				if(!dvd.getTipoAsString().equalsIgnoreCase(parameters.get("t"))){//exclui dvd
 					continue;
 				}
 			}
 			
 			//TODO filtro por categoria
-			if(optionalParameters.containsKey("c") && lista.size() > 0){
-				if(!dvd.getCategoriaAsString().equalsIgnoreCase(optionalParameters.get("c"))){//exclui dvd
+			if(parameters.containsKey("c") && lista.size() > 0){
+				if(!dvd.getCategoriaAsString().equalsIgnoreCase(parameters.get("c"))){//exclui dvd
 					continue;
 				}
 			}

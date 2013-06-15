@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+
 import br.com.locadora.dataIO.AluguelImportacao;
 import br.com.locadora.dataIO.ClienteImportacao;
 import br.com.locadora.dataIO.FilmeImportacao;
@@ -27,15 +29,25 @@ public class ControllerAluguel {
 	
 	
 	public static void teste() {
-		realizaAluguel("009", "003003", "02/03/2005", "2.00");
-				
-		realizarDevolucao("009", "003003", "02/03/2005", "4.00");
+		HashMap<String, String> parameters = new HashMap<String, String>();
+		parameters.put("d", "009");
+		parameters.put("c", "003003");
+		parameters.put("t", "02/03/2005");
+		parameters.put("v", "2.00");
+						
+		realizaAluguel(parameters);
+		realizarDevolucao(parameters);
 	}
 	
-	public static void realizaAluguel(String codigoDVD, String codigoCliente, String dataAluguel, String valorPago) {
+	public static void realizaAluguel(HashMap<String, String> parameters) {
 		
 		Cliente cliente;
 		DVD dvd;
+		
+		String codigoDVD = parameters.get("d"),
+			   codigoCliente = parameters.get("c"),
+			   dataAluguel = parameters.get("t");
+		double valorPago =  Double.parseDouble(parameters.get("v").replace(",", "."));
 		
 		//busca cliente e dvd
 		if((cliente = getCliente(codigoCliente)) == null || (dvd = getDVD(codigoDVD)) == null){
@@ -60,10 +72,9 @@ public class ControllerAluguel {
 		}  
 		
 		//calculo do preço de locação
-		double saldo = 0,
-				converted = Double.parseDouble(valorPago);
-		if(!Double.isNaN(converted)){
-			saldo = converted - dvd.getPrecoLocacao(cliente.getStatus());
+		double saldo = 0;
+		if(!Double.isNaN(valorPago)){
+			saldo = valorPago - dvd.getPrecoLocacao(cliente.getStatus());
 		}
 		
 
@@ -81,11 +92,17 @@ public class ControllerAluguel {
 		
 	}
 	
-	public static void realizarDevolucao(String codigoDVD, String codigoCliente, String dataAluguel, String valorPago) {
+	public static void realizarDevolucao(HashMap<String, String> parameters) {
 		
 		Cliente cliente;
 		DVD dvd;
-				
+		
+
+		String codigoDVD = parameters.get("d"),
+			   codigoCliente = parameters.get("c"),
+			   dataAluguel = parameters.get("t");
+		double valorPago =  Double.parseDouble(parameters.get("v").replace(",", "."));
+		
 		//busca cliente e dvd
 		if((cliente = getCliente(codigoCliente)) == null || (dvd = getDVD(codigoDVD)) == null){
 			ViewAluguel.dadoNaoEncontrado();
@@ -93,16 +110,15 @@ public class ControllerAluguel {
 		}
 		
 		//Carrega arquivo do aluguel de acordo com cliente e dvd
-		if(!AluguelImportacao.carregarArquivo(dvd.getCodigo(), cliente.getCodigo(), dataAluguel)){
+		if(!AluguelImportacao.carregarAluguel(dvd.getCodigo(), cliente.getCodigo(), dataAluguel)){
 			ViewAluguel.dadoNaoEncontrado();
 						
 		}				
 		
 		//calculo do preço de locação
-		double saldo = 0,
-				valorPagoDouble = Double.parseDouble(valorPago);
-		if(!Double.isNaN(valorPagoDouble)){
-			saldo = valorPagoDouble + AluguelImportacao.getValor();
+		double saldo = 0;
+		if(!Double.isNaN(valorPago)){
+			saldo = valorPago + AluguelImportacao.getValor();
 		}
 		
 
@@ -130,7 +146,7 @@ public class ControllerAluguel {
 	private static Cliente getCliente(String codigo) {
 //		ArrayList<Cliente> lista = new ArrayList<Cliente>();
 		
-		listaGeralClientes = ClienteImportacao.clienteImportacao();
+		listaGeralClientes = ClienteImportacao.listaDeClientes();
 			
 		for (Cliente cliente : listaGeralClientes) {
 			if(cliente.getCodigo().equals(codigo)) return cliente; 

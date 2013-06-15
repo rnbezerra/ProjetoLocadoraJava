@@ -9,7 +9,7 @@ import br.com.locadora.model.Cliente;
 import br.com.locadora.model.HistoricoLocacao;
 
 
-public class ClienteImportacao {
+public class ClienteImportacao extends Serializer<ArrayList<Cliente>> {
 	/*
 	 * A classe ClienteImportacao é responsável por obter os dados dos clientes que estao dentro
 	 * do aquivo clientes.txt na pasta importacao, e retornar uma ArrayList contendo todos os 
@@ -22,16 +22,39 @@ public class ClienteImportacao {
 	 * criados na classe HistoricoLocacao e HistoricoLocacaoCollection.
 	 * 
 	 * 
-	 * */	
+	 * */
 	
-	public static ArrayList<Cliente> clienteImportacao(){
+	public static final String FILENAME = "Cliente";
+	
+	/**
+	 * Este método retorna um nova instância da classe ClienteImportacao
+	 * @return new ClienteImportacao();
+	 */
+	public static ClienteImportacao getInstance() {
+		return new ClienteImportacao();
+	}
+	
+	public static void salvarClientes(ArrayList<Cliente> lista) {
+		getInstance().using(lista).saveFileWithName(FILENAME);
+	}
+	
+	public static ArrayList<Cliente> listaDeClientes(){
+
+		ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
+		
+		/*VERIFICA SE JÁ EXISTE UM ARQUIVO SERIALIZADO*/
+		if(getInstance().using(new ArrayList<Cliente>()).dirExists()){
+			//return new ArrayList<Cliente>().using(new ArrayList<Cliente>()).loadFileWithName(FILENAME).getObject();
+			if(!(listaDeClientes = getInstance().using(new ArrayList<Cliente>()).loadFileWithName(FILENAME).getObject()).isEmpty()){
+				return listaDeClientes;
+			}
+		}
 		
 		/*Declaração de Variaveis*/
 		
 		int i=0;
 		String leitura;
 		
-		ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
 		ArrayList<String> listaDeDados = new ArrayList<String>();
 		
 		String dados;

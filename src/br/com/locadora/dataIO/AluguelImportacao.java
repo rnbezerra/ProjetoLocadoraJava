@@ -31,13 +31,17 @@ public class AluguelImportacao extends Serializer<AluguelSerializable>{
 		return valor;
 	}
 	
+	private static AluguelImportacao getInstance() {
+		return new AluguelImportacao();
+	}
+	
 	public static boolean salvarAluguel(DVD dvd, Cliente cliente, String dataAluguel, double valorPago ) {
 		
 		String filename = String.format("%s_%s_%s", cliente.getCodigo(), dvd.getCodigo(), dataAluguel.replace("/", ""));
 
 		AluguelSerializable serializable = new AluguelSerializable(cliente.getCodigo(), dvd.getCodigo(), dataAluguel, valorPago);
 				
-		return new AluguelImportacao().using(serializable).salvarArquivo(filename);
+		return new AluguelImportacao().using(serializable).saveFileWithName(filename);
 		
 		/*
 		try {
@@ -61,18 +65,17 @@ public class AluguelImportacao extends Serializer<AluguelSerializable>{
 		return true;*/
 	}
 
-	public static boolean carregarArquivo(String codigoDVD, String codigoCliente, String dataAluguel) {
+	public static boolean carregarAluguel(String codigoDVD, String codigoCliente, String dataAluguel) {
 		String filename = String.format("%s_%s_%s", codigoCliente, codigoDVD, dataAluguel.replace("/", ""));
 		
-		AluguelImportacao importacao = new AluguelImportacao();
-		boolean success = importacao.using(new AluguelSerializable()).carregarArquivo(filename);
-		if(success){
-			AluguelSerializable ai = importacao.getObject();
-			
-			codigoCliente = ai.getCodigoCliente();
-			codigoDvd = ai.getCodigoDVD();
-			dataAluguel = ai.getDataLocacao();
-			valor = ai.getValorPago();
+		
+		AluguelSerializable aluguel = getInstance().using(new AluguelSerializable()).loadFileWithName(filename).getObject();
+		boolean success = false;
+		if((success = (aluguel != null))){			
+			codigoCliente = aluguel.getCodigoCliente();
+			codigoDvd = aluguel.getCodigoDVD();
+			dataAluguel = aluguel.getDataLocacao();
+			valor = aluguel.getValorPago();
 		}
 		
 		return success;

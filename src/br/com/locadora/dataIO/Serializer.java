@@ -11,15 +11,15 @@ public class Serializer<E> {
 
 	private final String PATH = "SERIALIZADO";
 	private E object;
-	private Class<?> classtype;
-	
+	private Class<?> classType;
+
 	/*
 	#### METODOS PÚBLICOS ####
 	*/
 	
 	protected Serializer<E> using(E object){
 		this.object = object;
-		classtype = object.getClass();
+		classType = object.getClass();
 		return this;
 	}
 	
@@ -27,15 +27,19 @@ public class Serializer<E> {
 		return object;
 	}
 	
-	protected boolean salvarArquivo(String filename) {
-		String classname = classtype.getSimpleName().toUpperCase();
+	protected String getFileName(String filename) {
+		String classname = classType.getSimpleName().toUpperCase();
+		return String.format("%s\\%s_%s.quack", PATH, classname, filename); 
+	}
+	
+	protected boolean saveFileWithName(String filename) {
 		
 		try {
-			if(!new File(PATH).exists()){
+			if(!dirExists()){
 				if(!new File(PATH).mkdir()) throw new IOException();
 			}
 			
-			filename = String.format("%s\\%s_%s.quack", PATH, classname, filename);
+			filename = getFileName(filename);
 			FileOutputStream fileOutputStream = new FileOutputStream(filename);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			
@@ -51,11 +55,11 @@ public class Serializer<E> {
 		return true;
 	}
 	
-	protected boolean carregarArquivo(String filename) {
-		String classname = classtype.getSimpleName().toUpperCase();
+	protected Serializer<E> loadFileWithName(String filename) {
+		String classname = classType.getSimpleName().toUpperCase();
 		
 		try {
-			if(!new File(PATH).exists()){
+			if(!dirExists() || !new File(getFileName(filename)).exists()){
 				new File(PATH).mkdir();
 				throw new IOException();
 			}
@@ -70,19 +74,21 @@ public class Serializer<E> {
 			objectInputStream.close();
 			inputStream.close();
 			
-			return true;
-			
 		} catch (IOException i) {
 			System.err.println("Erro na leitura do arquivo.");
 			//i.printStackTrace();
-			return false;
-			
 		}catch (ClassNotFoundException c) {
 			System.err.println("Classe Não encontrada");
 			//c.printStackTrace();
-			return false;
 		}
+		
+		return this;
 	}
+	
+	protected boolean dirExists() {
+		return new File(PATH).exists();
+	}
+	
 	
 	/*
 	#### METODOS PRIVADOS ####

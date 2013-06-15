@@ -42,7 +42,7 @@ public class ControllerCliente {
 	private static Cliente getCliente(String codigo) {
 		ArrayList<Cliente> lista = new ArrayList<Cliente>();
 		
-		lista = ClienteImportacao.clienteImportacao();
+		lista = ClienteImportacao.listaDeClientes();
 			
 		for (Cliente cliente : lista) {
 			if(cliente.getCodigo().equals(codigo)) return cliente; 

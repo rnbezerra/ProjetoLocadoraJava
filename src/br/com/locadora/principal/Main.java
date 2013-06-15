@@ -1,21 +1,28 @@
 package br.com.locadora.principal;
 
+import java.awt.Container;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import br.com.locadora.controller.ControllerAluguel;
+import br.com.locadora.controller.ControllerCliente;
+import br.com.locadora.controller.ControllerDVD;
+import br.com.locadora.dataIO.ClienteImportacao;
+import br.com.locadora.dataIO.Serializer;
+import br.com.locadora.model.Cliente;
 
 public class Main {
 		
-	public static void main(String[] param) {
+	public static void main(String[] args) {		
 		//String testeString = " -a oi -b tudo -c bem -d com voce";
-		HashMap<String, String> parameters = parseArrayToHashMap(param);
+		HashMap<String, String> parameters = parseArrayToHashMap(args);
 		
 		System.out.println(parameters);
 		//ControllerCliente.teste();
 		//ControllerDVD.teste();
-				
-		/*
-		KeyValueCollection collection = new KeyValueCollection();
-		collection.addKeyValuesFromArray(param);
-		if(collection.hasKey("comando")){			
+		
+		if(parameters.containsKey("comando")){			
+			/*
 			Consulta de DVD 
 			 * -comando consultaDVD -p <palavra chave>
 			 * Parâmetros opcionais:
@@ -25,39 +32,33 @@ public class Main {
 			 *  -t <Tipo de DVD>
 			 *  -c <Categoria>
 			 * 
-			 
-			if(collection.getValue("comando") == "consultaDVD"){
-				
+			*/ 
+			if(parameters.get("comando").equalsIgnoreCase("consultaDVD")){
+				ControllerDVD.listaDVDs(parameters);
 			}
 			//Visualizar os detalhes do DVD
 			//-comando selecionaDVD -c <código do DVD>
-			else if(collection.getValue("comando") == "selecionaDVD"){
-				
+			else if(parameters.get("comando").equalsIgnoreCase("selecionaDVD")){
+				ControllerDVD.realizarBusca(parameters.get("c"));
 			}
 			//Alugar DVD
 			//-comando alugarDVD -d <código do DVD> -c <código do Cliente> -t <data do aluguel (Formato DD/MM/YYYY)> -v <valor pago>
-			else if(collection.getValue("comando") == "aluguelDVD"){
+			else if(parameters.get("comando").equalsIgnoreCase("aluguelDVD")){
 				//verificar parametros obrigatórios
-				if( collection.hasKey("d") && collection.hasKey("c") &&
-					collection.hasKey("t") && collection.hasKey("v")){
-					
-					ControllerAluguel.realizaAluguel();
-				}
-				else invalidParameters();
 			}
 			//Devolver DVD
 			//-comando devolverDVD -d <código do DVD> -c <código do Cliente> -t <data do aluguel (Formato DD/MM/YYYY)> -v <valor pago>
-			else if(collection.getValue("comando") == "devolverDVD"){
+			else if(parameters.get("comando").equalsIgnoreCase("devolverDVD")){
 				
 			}
 			//Consulta de Cliente
 			//-comando consultaCliente -c <código do cliente>
-			else if(collection.getValue("comando") == "consultaCliente"){
-				
+			else if(parameters.get("comando").equalsIgnoreCase("consultaCliente")){
+				ControllerCliente.realizarBusca(parameters.get("c"));
 			}
 			
 		}
-		*/
+		
 	}
 
 	public static HashMap<String, String> parseArrayToHashMap(String[] param){
