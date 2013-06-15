@@ -7,6 +7,8 @@ import br.com.locadora.dataIO.AtorArtistaImportacao;
 import br.com.locadora.dataIO.DiretorImportacao;
 import br.com.locadora.dataIO.FilmeImportacao;
 import br.com.locadora.dataIO.ShowImportacao;
+import br.com.locadora.model.DVD;
+import br.com.locadora.model.DVD.TipoDVD;
 import br.com.locadora.model.Diretor;
 import br.com.locadora.model.Filme;
 import br.com.locadora.model.Personalidade;
@@ -22,16 +24,11 @@ public class ControllerDVD {
 		System.out.println("\n----\n");
 		realizarBusca("001");
 		System.out.println("\n----\n");
-		realizarBusca("003");
-		System.out.println("\n----\n");
-		realizarBusca("006");
-		System.out.println("\n----\n");
-		realizarBusca("009");
-		System.out.println("\n----\n");
-		realizarBusca("014");
-		System.out.println("\n----\n");
-		realizarBusca("013");
-		System.out.println("\n----\n");
+		
+		HashMap<String, String> hash = new HashMap<String, String>();
+		//hash.put("t", "show");
+		hash.put("t", "filme");
+		listaDVDs("tom", hash);
 	}
 
 	public static void realizarBusca(String codigo) {
@@ -54,9 +51,118 @@ public class ControllerDVD {
 		else ViewDVD.dadoNaoEncontrado();
 	}
 	
+	public static void listaDVDs(String queryString, HashMap<String, String> optionalParameters) {
+		
+		ArrayList<DVD> lista = getDVDs();
+		ArrayList<DVD> matchedDVDs = new ArrayList<DVD>();
+		HashMap<String, Personalidade> personalidades = getPersonalidades();				
+		
+		queryString = queryString.toLowerCase();
+		
+		for (DVD dvd : lista) {
+
+			//TODO filtro pela query string
+			//filtrar em titulo e nome(Personalidade)
+			
+			boolean queryMatch = false;
+			//Verifica se a lista ainda é maior que 0
+			if(lista.size() > 0){
+				//verifica se o titulo do DVD possia a queryString
+				//se tiver o DVD permanesse na lista, senão...
+				if(dvd.getTitulo().toLowerCase().indexOf(queryString) == -1){
+					
+					
+					//verifica se o tipo do dvd é filme
+					if(dvd.getTipo() == TipoDVD.Filme)
+					{
+						//carrega o filme pelo codigo
+						Filme filme = getFilme(dvd.getCodigo());
+						//verifica se o filme tem o diretor com o nome na queryString
+						//se tiver o DVD permanesse na lista, senão... 
+						if(getDiretor(filme.getDirecao()).getNome().toLowerCase().indexOf(queryString) == -1){
+							//verifica se algum dos atores no elenco do filme tem o nome compativel com a queryString
+							for (String codArtista : filme.getElenco()) {
+								if(personalidades.get(codArtista).getNome().toLowerCase().indexOf(queryString) != -1){
+									queryMatch = true;
+									break;
+								}
+							}
+							//se rodou todo a lista do elenco e não achou a queryString
+							if(!queryMatch){
+								continue;
+							}
+								
+						}						
+					}
+					else{//tipo == Show
+						
+						Show show = getShow(dvd.getCodigo());
+						
+						if(personalidades.get(show.getArtista()).getNome().toLowerCase().indexOf(queryString) == -1){
+							continue;
+						}
+					}
+					
+					
+				}
+			}
+			else break;
+
+			//TODO filtro por ano de lançamento
+			if(optionalParameters.containsKey("y") && lista.size() > 0){
+				if(!dvd.getAnoLancamento().equals(optionalParameters.get("y"))){//exclui dvd
+					continue;
+				}
+			}
+			
+			//TODO filtro por genero
+			if(optionalParameters.containsKey("g") && lista.size() > 0){
+				if(!dvd.getGenero().equalsIgnoreCase(optionalParameters.get("g"))){//exclui dvd
+					continue;
+				}
+			}
+			
+			//TODO filtro por area
+			if(optionalParameters.containsKey("a") && lista.size() > 0){
+				if(!dvd.getArea().equals(optionalParameters.get("a"))){//exclui dvd
+					continue;
+				}
+			}
+			
+			//TODO filtro por tipo de dvd
+			if(optionalParameters.containsKey("t") && lista.size() > 0){
+				if(!dvd.getTipoAsString().equalsIgnoreCase(optionalParameters.get("t"))){//exclui dvd
+					continue;
+				}
+			}
+			
+			//TODO filtro por categoria
+			if(optionalParameters.containsKey("c") && lista.size() > 0){
+				if(!dvd.getCategoriaAsString().equalsIgnoreCase(optionalParameters.get("c"))){//exclui dvd
+					continue;
+				}
+			}
+			
+			matchedDVDs.add(dvd);
+		}
+		
+		
+		if(matchedDVDs.size() > 0) ViewDVD.mostraListaDeDVDs(matchedDVDs);
+		else ViewDVD.dadoNaoEncontrado();
+	}
+	
 	/*
 	#### METODOS PRIVADOS ####
 	*/
+	
+	private static ArrayList<DVD> getDVDs() {
+		ArrayList<DVD> lista = new ArrayList<DVD>();
+		
+		lista.addAll(FilmeImportacao.listaDeFilmes());
+		lista.addAll(ShowImportacao.listaDeShows());
+		
+		return lista;
+	}
 	
 	private static Filme getFilme(String codigo) {
 		ArrayList<Filme> lista = new ArrayList<Filme>();
@@ -78,6 +184,16 @@ public class ControllerDVD {
 		}
 		
 		return null;
+	}
+	
+	private static HashMap<String, Personalidade> getPersonalidades() {
+		HashMap<String, Personalidade> hash = new HashMap<String, Personalidade>();
+		
+		for (Personalidade p : AtorArtistaImportacao.listaDeAtoresArtistas()) {
+			hash.put(p.getCodigo(), p);
+		}
+		
+		return hash; 
 	}
 	
 	private static Show getShow(String codigo) {

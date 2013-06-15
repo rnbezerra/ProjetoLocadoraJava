@@ -1,7 +1,9 @@
 package br.com.locadora.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import br.com.locadora.model.DVD;
 import br.com.locadora.model.Filme;
 import br.com.locadora.model.Personalidade;
 import br.com.locadora.model.Show;
@@ -16,7 +18,7 @@ public class ViewDVD {
 		<Sinopse>;\n
 		<Código Personalidade>-<Nome Personalidade>|<Código Personalidade>-<Nome Personalidade>;\n
 		<Código Diretor>-<Nome Diretor>;\n
-		<Ano>;<Categoria>;
+		<Ano>;<Categoria>;\n
 		<Quantidade disponível>;\n
 		*/
 
@@ -33,7 +35,8 @@ public class ViewDVD {
 		mensagem.append(";\n");
 		
 		mensagem.append(String.format("%s-%s;\n", filme.getDirecao(), nomeDiretor))
-				.append(String.format("%s;%s;%s;\n", filme.getAnoLancamento(), filme.getCategoriaAsString(), filme.getCopias() ));
+				.append(String.format("%s;%s\n", filme.getAnoLancamento(), filme.getCategoriaAsString()))
+				.append(String.format("%d;\n", filme.getCopias()));
 		
 		System.out.println(mensagem.toString());
 	}
@@ -44,8 +47,8 @@ public class ViewDVD {
 		<tipo>;\n
 		<Código>;<Nome DVD>;<Área>;<Gênero>;\n
 		<Faixas>;\n
-		<Artista>;
-		<Ano>;<Categoria>;
+		<Artista>;\n
+		<Ano>;<Categoria>;\n
 		<Quantidade disponível>;\n
 		*/
 		
@@ -53,10 +56,22 @@ public class ViewDVD {
 		mensagem.append("show;\n")
 				.append(String.format("%s;%s;%s;%s;\n", show.getCodigo(), show.getTitulo(), show.getArea(), show.getGenero()))
 				.append(String.format("%s\n", show.getFaixas() ))
-				.append(String.format("%s;%s;%s;%s;\n", show.getArtista(), show.getAnoLancamento(), show.getCategoriaAsString(), show.getCopias() ));
+				.append(String.format("%s;", show.getArtista()))
+				.append(String.format("%s;%s;\n", show.getAnoLancamento(), show.getCategoriaAsString()))
+				.append(String.format("%d;", show.getCopias()));
 		
 		
 		System.out.println(mensagem.toString());
+	}
+
+	public static void mostraListaDeDVDs(ArrayList<DVD> lista) {
+		StringBuilder mensagem = new StringBuilder();
+		for (DVD dvd : lista) {
+			mensagem.append(String.format("%s;%s\n", dvd.getCodigo(), dvd.getTitulo()));
+		}
+		
+		System.out.println(mensagem.toString());
+		
 	}
 
 	public static void dadoNaoEncontrado() {
