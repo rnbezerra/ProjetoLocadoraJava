@@ -84,8 +84,9 @@ public class ControllerAluguel {
 		
 		//Adiciona novo alugal à lista de historico de locações
 		cliente.addHistoricoLocacao(new HistoricoLocacao(codigoDVD, dataAluguel, false));
-		//TODO salvar lista de clientes em arquivo
-				
+		ClienteImportacao.salvarClientes(listaGeralClientes);
+
+		//salva lista de clientes em arquivo
 		AluguelImportacao.salvarAluguel(dvd, cliente, dataAluguel, saldo);
 		
 		ViewAluguel.mostraAluguelRealizado(cliente, dvd, saldo, new SimpleDateFormat("dd/MM/yyyy").format(dataDevolucao.getTime()));
@@ -133,7 +134,8 @@ public class ControllerAluguel {
 			.getByCodigoDvdDataLocacao(codigoDVD, dataAluguel)
 			.setDevolvido(true);
 
-		//TODO salvar lista de clientes em arquivo
+		//salva lista de clientes em arquivo
+		ClienteImportacao.salvarClientes(listaGeralClientes);
 		
 		Date now = Calendar.getInstance().getTime();
 		

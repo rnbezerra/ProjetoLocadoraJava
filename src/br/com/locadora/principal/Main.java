@@ -13,13 +13,9 @@ import br.com.locadora.model.Cliente;
 
 public class Main {
 		
-	public static void main(String[] args) {		
-		//String testeString = " -a oi -b tudo -c bem -d com voce";
+	public static void main(String[] args) {
+
 		HashMap<String, String> parameters = parseArrayToHashMap(args);
-		
-		System.out.println(parameters);
-		//ControllerCliente.teste();
-		//ControllerDVD.teste();
 		
 		if(parameters.containsKey("comando")){			
 			/*
@@ -43,13 +39,14 @@ public class Main {
 			}
 			//Alugar DVD
 			//-comando alugarDVD -d <código do DVD> -c <código do Cliente> -t <data do aluguel (Formato DD/MM/YYYY)> -v <valor pago>
-			else if(parameters.get("comando").equalsIgnoreCase("aluguelDVD")){
+			else if(parameters.get("comando").equalsIgnoreCase("alugarDVD")){
 				//verificar parametros obrigatórios
+				ControllerAluguel.realizaAluguel(parameters);
 			}
 			//Devolver DVD
 			//-comando devolverDVD -d <código do DVD> -c <código do Cliente> -t <data do aluguel (Formato DD/MM/YYYY)> -v <valor pago>
 			else if(parameters.get("comando").equalsIgnoreCase("devolverDVD")){
-				
+				ControllerAluguel.realizarDevolucao(parameters);
 			}
 			//Consulta de Cliente
 			//-comando consultaCliente -c <código do cliente>
