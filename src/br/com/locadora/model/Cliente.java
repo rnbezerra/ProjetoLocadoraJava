@@ -1,6 +1,8 @@
 package br.com.locadora.model;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable{
 
 	public enum StatusCliente{
 		Bronze, Prata, Ouro;

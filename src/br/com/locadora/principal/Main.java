@@ -1,23 +1,16 @@
 package br.com.locadora.principal;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import br.com.locadora.controller.ControllerDVD;
-import br.com.locadora.model.AluguelSerializable;
-import br.com.locadora.utils.KeyValue;
-import br.com.locadora.utils.KeyValueCollection;
-
+import java.util.HashMap;
 
 public class Main {
-	
-	
+		
 	public static void main(String[] param) {
-
+		//String testeString = " -a oi -b tudo -c bem -d com voce";
+		HashMap<String, String> parameters = parseArrayToHashMap(param);
+		
+		System.out.println(parameters);
 		//ControllerCliente.teste();
-		ControllerDVD.teste();
+		//ControllerDVD.teste();
 				
 		/*
 		KeyValueCollection collection = new KeyValueCollection();
@@ -67,67 +60,23 @@ public class Main {
 		*/
 	}
 
-
-	private static void invalidParameters() {
-		System.out.println("Parametros obrigarótios inválidos.");
-	}
-
-	private static void testeSerializacao(AluguelSerializable advd) {
-		try{
-			String filename = String.format("ALUGUEL\\ALUGUEL_%s_%s.ser", advd.getCodigoCliente(), advd.getCodigoDVD());
-			System.out.println(filename);
-			FileOutputStream fileOutputStream = new FileOutputStream(filename);
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			objectOutputStream.writeObject(advd);
-			objectOutputStream.close();
-			fileOutputStream.close();
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-	}
-
-	private static void testeDeserializacao(String filename) {
-		AluguelSerializable aluguelDvd = new AluguelSerializable();
-		try {
-			
-			FileInputStream inputStream = new FileInputStream(filename);
-			ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-//			aluguelDvd = (AluguelDvd) objectInputStream.readObject();
-			aluguelDvd = aluguelDvd.getClass().cast(objectInputStream.readObject());
-			
-			objectInputStream.close();
-			inputStream.close();
-			
-		} catch (IOException i) {
-			i.printStackTrace();
-			return;
-			
-		}catch (ClassNotFoundException c) {
-			System.out.println("Classe Não encontrada");
-			c.printStackTrace();
-			return;
+	public static HashMap<String, String> parseArrayToHashMap(String[] param){
+		HashMap<String, String> hashmap = new HashMap<String, String>(); 
+		StringBuilder allParams = new StringBuilder();
+		
+		for(String p : param){
+			allParams.append(p).append(":");
 		}
 		
+		String[] allParamsArray = allParams.toString().split("-");
 		
-		System.out.println("Objeto carregado...");
-		System.out.println("Codigo Cliente: " + aluguelDvd.getCodigoCliente());
-		System.out.println("Codigo DVD: " + aluguelDvd.getCodigoDVD());
-		System.out.println("Data de Aluguel: " + aluguelDvd.getDataLocacao());
-		System.out.println("Valor Pago: R$" + aluguelDvd.getValorPago());
-		
-	}
-
-	private static void testeParametros() {
-		String parametosTeste = " -a oi -b tudo -c bem -d com voce";
-		
-		KeyValueCollection collecton = new KeyValueCollection();
-		collecton.addKeyValuesFromArray(parametosTeste.split(" "));
-		
-		for (KeyValue keyValue : collecton) {
-			System.out.println(keyValue.getKeyValue());
+		for(String str : allParamsArray){		
+			if(str.split(":").length >= 2){
+				hashmap.put(str.split(":")[0], str.split(":")[1]);
+			}
 		}
+		
+		return hashmap;
 	}
-	
 }
 

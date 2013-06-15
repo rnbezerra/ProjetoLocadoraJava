@@ -1,6 +1,8 @@
 package br.com.locadora.model;
 
-public class DVD {
+import java.io.Serializable;
+
+public class DVD implements Serializable{
 
 	public enum CategoriaDVD{
 		Acervo, Lancamento;

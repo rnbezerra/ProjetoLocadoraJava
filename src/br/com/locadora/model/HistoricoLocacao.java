@@ -1,10 +1,11 @@
 package br.com.locadora.model;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class HistoricoLocacao{
+public class HistoricoLocacao implements Serializable{
 
 	private String codigoDVD;
 	private Calendar dataLocacao;
