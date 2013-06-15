@@ -9,10 +9,81 @@ import br.com.locadora.model.Personalidade.Sexo;
 
 
 
-public class AtorArtistaImportacao {
 
-	public static ArrayList<Artista> listaDeAtoresArtistas(){
-	//public static void main(String[] args) {
+public class AtorArtistaImportacao implements Serializable{
+
+	private static void serializaArtistas(ArrayList<Artista> ListaDeArtistas, String arquivo){
+		
+		FileOutputStream arquivoSer = null;
+		ObjectOutputStream saidaSer = null;
+		
+		try{
+			
+			arquivoSer = new FileOutputStream(arquivo);
+			
+			saidaSer = new ObjectOutputStream(arquivoSer);
+			
+			saidaSer.writeObject(ListaDeArtistas);
+						
+		} catch(IOException e ){
+			
+			e.printStackTrace();
+			
+		} finally{
+				
+				try{
+					arquivoSer.close();
+					saidaSer.close();
+			
+				} catch(IOException e){
+					
+					e.printStackTrace();					
+					
+				} 				
+		}		
+		
+	}
+	
+	private static ArrayList<Artista> deserializaArtistas(String arquivo){
+		FileInputStream leitura = null;
+		ObjectInputStream lido = null;
+		ArrayList<Artista> listaDeArtistas = null;
+		
+		try {
+			
+			leitura = new FileInputStream(arquivo);
+	 
+			
+			lido = new ObjectInputStream(leitura);
+	 
+			
+			listaDeArtistas = (ArrayList<Artista>) lido.readObject();
+			
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				leitura.close();
+				lido.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	 
+		return listaDeArtistas;
+				
+	}
+	
+	//public static ArrayList<Artista> listaDeAtoresArtistas(){
+	public static void main(String[] args) {
+		
+		
 		
 		ArrayList<Artista> listaDeArtistas = new ArrayList<Artista>();
 		ArrayList<String> listaDeDados = new ArrayList<String>();
@@ -68,7 +139,9 @@ public class AtorArtistaImportacao {
 			
 		}
 		
-		return listaDeArtistas;
+		String filename = String.format("%s", listaDeArtistas.get(0).getCodigo());
+		serializaArtistas(listaDeArtistas, "SERIALIZADO\\ATORARTISTA_"+filename+".quack");
+		//return listaDeArtistas;
 	}
 
 }
