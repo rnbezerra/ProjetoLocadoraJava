@@ -38,6 +38,7 @@ public class ClienteImportacao extends Serializer<ArrayList<Cliente>> {
 		getInstance().using(lista).saveFileWithName(FILENAME);
 	}
 	
+	
 	public static ArrayList<Cliente> listaDeClientes(){
 
 		ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
@@ -46,7 +47,7 @@ public class ClienteImportacao extends Serializer<ArrayList<Cliente>> {
 		if(getInstance().using(new ArrayList<Cliente>()).dirExists()){
 			//return new ArrayList<Cliente>().using(new ArrayList<Cliente>()).loadFileWithName(FILENAME).getObject();
 			if(!(listaDeClientes = getInstance().using(new ArrayList<Cliente>()).loadFileWithName(FILENAME).getObject()).isEmpty()){
-				return listaDeClientes;
+				return listaDeClientes; 
 			}
 		}
 		
@@ -57,7 +58,7 @@ public class ClienteImportacao extends Serializer<ArrayList<Cliente>> {
 		
 		ArrayList<String> listaDeDados = new ArrayList<String>();
 		
-		String dados;
+		
 		String[] historico;
 		/*----------------------*/
 		
@@ -71,7 +72,7 @@ public class ClienteImportacao extends Serializer<ArrayList<Cliente>> {
 				FileReader fileReader = new FileReader(arq);
 					
 				BufferedReader bufferedReader = new BufferedReader(fileReader);
-				//leitura = bufferedReader.readLine();
+				
 				
 				while((leitura = bufferedReader.readLine()) != null){
 					listaDeDados.add(leitura);
@@ -79,28 +80,29 @@ public class ClienteImportacao extends Serializer<ArrayList<Cliente>> {
 				
 				bufferedReader.close();
 				
-				while((dados = listaDeDados.get(i))!= null){
+				while( i < listaDeDados.size()){
+				
 					Cliente c = new Cliente();
 					
-					c.setNome(dados);
-					i++;
-					c.setCodigo(listaDeDados.get(i));
-					i++;
-					c.setCpf(listaDeDados.get(i));
-					i++;
-					c.setEndereco(listaDeDados.get(i));
-					i++;
-					c.setCep(listaDeDados.get(i));
-					i++;
-					c.setTelefone(listaDeDados.get(i));
-					i++;
+					c.setNome(listaDeDados.get(i++));
+					
+					c.setCodigo(listaDeDados.get(i++));
+					
+					c.setCpf(listaDeDados.get(i++));
+				
+					c.setEndereco(listaDeDados.get(i++));
+				
+					c.setCep(listaDeDados.get(i++));
+				
+					c.setTelefone(listaDeDados.get(i++));
+				
 					i++;//Existe um campo com o tipo de usuario Bronze etc, nao existe set pra isso, entao pulei
 					
-					if((dados = listaDeDados.get(i)).equals("#")){
-						i++;
+					if((listaDeDados.get(i++)).equals("#")){
+				
 						while(!(listaDeDados.get(i).equals("##"))){
 							HistoricoLocacao hisLoc = new HistoricoLocacao();
-							historico = listaDeDados.get(i).split(" ");
+							historico = listaDeDados.get(i++).split(" ");
 							hisLoc.setCodigoDVD(historico[0]);
 							hisLoc.setDataLocacao(historico[1]);
 							if((historico.length) > 2){//Se o historico tem tamanho 3, significa que há registro de devolução
@@ -110,7 +112,7 @@ public class ClienteImportacao extends Serializer<ArrayList<Cliente>> {
 								hisLoc.setDevolvido(false);
 							}
 							c.addHistoricoLocacao(hisLoc);							
-							i++;
+				
 						}
 					}
 					
