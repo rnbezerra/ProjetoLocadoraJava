@@ -56,6 +56,10 @@ public class ViewAluguel {
 		System.out.println("DVD ou Cliente não encontrado.");
 	}
 
+	public static void aluguelNaoEncontrado() {
+		System.out.println("Aluguel não existente.\n");
+	}
+
 	public static void copiasIndisponiveis(DVD dvd) {
 		System.out.println("Não há cópias disponíveis do DVD");
 	}

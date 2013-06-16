@@ -124,7 +124,7 @@ public class ControllerAluguel {
 		
 		//Carrega arquivo do aluguel de acordo com cliente e dvd
 		if(!AluguelImportacao.carregarAluguel(dvd.getCodigo(), cliente.getCodigo(), dataAluguel)){
-			ViewAluguel.dadoNaoEncontrado();
+			ViewAluguel.aluguelNaoEncontrado();
 			return;
 		}				
 		
@@ -164,7 +164,7 @@ public class ControllerAluguel {
 		//insere a data de devolução no historico de locações
 		cliente.getHistoricoLocacao()
 			.getByCodigoDvdDataLocacao(codigoDVD, dataAluguel)
-			.setDataDevolucao(dataAluguel);
+			.setDataDevolucao(now);
 		cliente.getHistoricoLocacao()
 			.getByCodigoDvdDataLocacao(codigoDVD, dataAluguel)
 			.setDevolvido(true);

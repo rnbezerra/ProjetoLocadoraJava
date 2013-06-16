@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class HistoricoLocacaoCollection extends ArrayList<HistoricoLocacao> implements Serializable{
 	
-	public HistoricoLocacao getByCodigoDvdDataLocacao(String codigoDVD, String dataLocacoo) {
+	public HistoricoLocacao getByCodigoDvdDataLocacao(String codigoDVD, String dataLocacao) {
 		for (HistoricoLocacao hl : this) {
-			if(hl.getCodigoDVD().equals(codigoDVD) && hl.getDataLocacaoAsString().equals(dataLocacoo)){
+			if(hl.getCodigoDVD().equals(codigoDVD) && hl.getDataLocacaoAsString().equals(dataLocacao) && !hl.isDevolvido()){
 				return hl;
 			}
 		}
