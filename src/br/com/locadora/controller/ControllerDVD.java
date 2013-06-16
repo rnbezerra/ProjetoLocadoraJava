@@ -17,21 +17,6 @@ import br.com.locadora.view.ViewDVD;
 
 public class ControllerDVD {
 
-	public static void teste() {
-		realizarBusca("002");
-		System.out.println("\n----\n");
-		realizarBusca("004");
-		System.out.println("\n----\n");
-		realizarBusca("001");
-		System.out.println("\n----\n");
-		
-		HashMap<String, String> hash = new HashMap<String, String>();
-		//hash.put("t", "show");
-		hash.put("p", "tom");
-		hash.put("t", "filme");
-		listaDVDs(hash);
-	}
-
 	public static void realizarBusca(String codigo) {
 		
 		Filme filme;
@@ -53,7 +38,17 @@ public class ControllerDVD {
 	}
 	
 	public static void listaDVDs(HashMap<String, String> parameters) {
-		
+		/*
+		Consulta de DVD 
+		 * -comando consultaDVD -p <palavra chave>
+		 * Parâmetros opcionais:
+		 *  -y <Ano do lançamento>
+		 *  -g <Gênero>
+		 *  -a <Área>
+		 *  -t <Tipo de DVD>
+		 *  -c <Categoria>
+		 * 
+		*/ 
 		ArrayList<DVD> lista = getDVDs();
 		ArrayList<DVD> matchedDVDs = new ArrayList<DVD>();
 		HashMap<String, Personalidade> personalidades = getPersonalidades();				
@@ -112,35 +107,35 @@ public class ControllerDVD {
 			}
 			else break;
 
-			//TODO filtro por ano de lançamento
+			//filtro por ano de lançamento
 			if(parameters.containsKey("y") && lista.size() > 0){
 				if(!dvd.getAnoLancamento().equals(parameters.get("y"))){//exclui dvd
 					continue;
 				}
 			}
 			
-			//TODO filtro por genero
+			//filtro por genero
 			if(parameters.containsKey("g") && lista.size() > 0){
 				if(!dvd.getGenero().equalsIgnoreCase(parameters.get("g"))){//exclui dvd
 					continue;
 				}
 			}
 			
-			//TODO filtro por area
+			//filtro por area
 			if(parameters.containsKey("a") && lista.size() > 0){
 				if(!dvd.getArea().equals(parameters.get("a"))){//exclui dvd
 					continue;
 				}
 			}
 			
-			//TODO filtro por tipo de dvd
+			//filtro por tipo de dvd
 			if(parameters.containsKey("t") && lista.size() > 0){
 				if(!dvd.getTipoAsString().equalsIgnoreCase(parameters.get("t"))){//exclui dvd
 					continue;
 				}
 			}
 			
-			//TODO filtro por categoria
+			//filtro por categoria
 			if(parameters.containsKey("c") && lista.size() > 0){
 				if(!dvd.getCategoriaAsString().equalsIgnoreCase(parameters.get("c"))){//exclui dvd
 					continue;

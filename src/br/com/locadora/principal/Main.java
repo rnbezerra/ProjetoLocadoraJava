@@ -1,15 +1,10 @@
 package br.com.locadora.principal;
 
-import java.awt.Container;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.com.locadora.controller.ControllerAluguel;
 import br.com.locadora.controller.ControllerCliente;
 import br.com.locadora.controller.ControllerDVD;
-import br.com.locadora.dataIO.ClienteImportacao;
-import br.com.locadora.dataIO.Serializer;
-import br.com.locadora.model.Cliente;
 
 public class Main {
 		
@@ -18,17 +13,7 @@ public class Main {
 		HashMap<String, String> parameters = parseArrayToHashMap(args);
 		
 		if(parameters.containsKey("comando")){			
-			/*
-			Consulta de DVD 
-			 * -comando consultaDVD -p <palavra chave>
-			 * Parâmetros opcionais:
-			 *  -y <Ano do lançamento>
-			 *  -g <Gênero>
-			 *  -a <Área>
-			 *  -t <Tipo de DVD>
-			 *  -c <Categoria>
-			 * 
-			*/ 
+			
 			if(parameters.get("comando").equalsIgnoreCase("consultaDVD")){
 				ControllerDVD.listaDVDs(parameters);
 			}

@@ -9,7 +9,7 @@ import br.com.locadora.model.DVD.CategoriaDVD;
 
 
 
-public class FilmeImportacao {
+public class FilmeImportacao extends Serializer<ArrayList<Filme>>{
 	/*
 	 * A classe FilmeImportacao é responsável por obter os dados dos Filmes que estao dentro
 	 * do aquivo dvdsFilmes.txt na pasta importacao, e retornar uma ArrayList contendo todos os 
@@ -22,20 +22,40 @@ public class FilmeImportacao {
 	 * 
 	 * 
 	 * */
+
 	
 	
+	private static final String FILENAME = "Filme";
 	
+	/**
+	 * Este método retorna um nova instância da classe FilmeImportacao
+	 * @return new FilmeImportacao();
+	 */
+	private static FilmeImportacao getInstance() {
+		return new FilmeImportacao();
+	}
 	
-	//public static void main(String args[]){
+	public static void salvarFilme(ArrayList<Filme> lista) {
+		getInstance().using(lista).saveFileWithName(FILENAME);
+	}	
+	
 	public static ArrayList<Filme> listaDeFilmes(){
-	
+
+		ArrayList<Filme> listaDeFilmes = new ArrayList<Filme>();
+		
+		/*VERIFICA SE JÁ EXISTE UM ARQUIVO SERIALIZADO*/
+		if(getInstance().using(new ArrayList<Filme>()).dirExists()){
+			if(!(listaDeFilmes = getInstance().using(new ArrayList<Filme>()).loadFileWithName(FILENAME).getObject()).isEmpty()){
+				return listaDeFilmes;
+			}
+		}
 		
 	/*Declaração de variáveis */
 		
 		int i = 0;
-		String leitura, /*dados,*/ categoriaFile;
+		String leitura, categoriaFile;
 		ArrayList<String> listaDeDados = new ArrayList<String>();
-		ArrayList<Filme> listaDeFilmes = new ArrayList<Filme>();
+
 		ArrayList<String> listaElenco = new ArrayList<String>();
 		
 		

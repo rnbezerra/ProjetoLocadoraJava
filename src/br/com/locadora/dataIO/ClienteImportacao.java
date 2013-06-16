@@ -24,13 +24,13 @@ public class ClienteImportacao extends Serializer<ArrayList<Cliente>> {
 	 * 
 	 * */
 	
-	public static final String FILENAME = "Cliente";
+	private static final String FILENAME = "Cliente";
 	
 	/**
 	 * Este método retorna um nova instância da classe ClienteImportacao
 	 * @return new ClienteImportacao();
 	 */
-	public static ClienteImportacao getInstance() {
+	private static ClienteImportacao getInstance() {
 		return new ClienteImportacao();
 	}
 	
@@ -45,7 +45,6 @@ public class ClienteImportacao extends Serializer<ArrayList<Cliente>> {
 		
 		/*VERIFICA SE JÁ EXISTE UM ARQUIVO SERIALIZADO*/
 		if(getInstance().using(new ArrayList<Cliente>()).dirExists()){
-			//return new ArrayList<Cliente>().using(new ArrayList<Cliente>()).loadFileWithName(FILENAME).getObject();
 			if(!(listaDeClientes = getInstance().using(new ArrayList<Cliente>()).loadFileWithName(FILENAME).getObject()).isEmpty()){
 				return listaDeClientes; 
 			}

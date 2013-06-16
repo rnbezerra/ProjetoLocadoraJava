@@ -74,12 +74,8 @@ public class Serializer<E> {
 			objectInputStream.close();
 			inputStream.close();
 			
-		} catch (IOException i) {
-			System.err.println("Erro na leitura do arquivo.");
-			//i.printStackTrace();
-		}catch (ClassNotFoundException c) {
-			System.err.println("Classe Não encontrada");
-			//c.printStackTrace();
+		} catch (IOException i) {			
+		} catch (ClassNotFoundException c) {
 		}
 		
 		return this;
@@ -89,8 +85,4 @@ public class Serializer<E> {
 		return new File(PATH).exists();
 	}
 	
-	
-	/*
-	#### METODOS PRIVADOS ####
-	*/
 }

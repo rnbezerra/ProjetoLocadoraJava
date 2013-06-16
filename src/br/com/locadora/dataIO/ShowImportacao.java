@@ -7,7 +7,7 @@ import br.com.locadora.model.Show;
 import br.com.locadora.model.DVD.CategoriaDVD;
 
 
-public class ShowImportacao {
+public class ShowImportacao extends Serializer<ArrayList<Show>>{
 	/*
 	 * A classe ShowImportacao é responsável por obter os dados dos Shows que estao dentro
 	 * do aquivo dvdsShows.txt na pasta importacao, e retornar uma ArrayList contendo todos os 
@@ -20,16 +20,39 @@ public class ShowImportacao {
 	 * 
 	 * 
 	 * */
+
 	
-	//public static void main(String args[]){
+	
+	private static final String FILENAME = "Show";
+	
+	/**
+	 * Este método retorna um nova instância da classe ShowImportacao
+	 * @return new ShowImportacao();
+	 */
+	private static ShowImportacao getInstance() {
+		return new ShowImportacao();
+	}
+	
+	public static void salvarShow(ArrayList<Show> lista) {
+		getInstance().using(lista).saveFileWithName(FILENAME);
+	}	
+
 	public static ArrayList<Show> listaDeShows(){
+		
+		ArrayList<Show> listaDeShows = new ArrayList<Show>();
+		
+		/*VERIFICA SE JÁ EXISTE UM ARQUIVO SERIALIZADO*/
+		if(getInstance().using(new ArrayList<Show>()).dirExists()){
+			if(!(listaDeShows = getInstance().using(new ArrayList<Show>()).loadFileWithName(FILENAME).getObject()).isEmpty()){
+				return listaDeShows;
+			}
+		}
+		
 		/*Declaração de variáveis */
 		
 		int i = 0;
-		String leitura, /*dados,*/ categoriaFile;
-		//CategoriaDVD categoria;
+		String leitura, categoriaFile;
 		ArrayList<String> listaDeDados = new ArrayList<String>();
-		ArrayList<Show> listaDeShows = new ArrayList<Show>();
 		
 		
 		/*------------------------*/
@@ -51,28 +74,22 @@ public class ShowImportacao {
 					Show show = new Show();
 					
 					show.setTitulo(listaDeDados.get(i++));
-					//i++;
 					show.setCodigo(listaDeDados.get(i++));
-					//i++;
 					show.setArea(listaDeDados.get(i++));
-					//i++;
 					show.setFaixas(listaDeDados.get(i++));
-					//i++;
 					show.setGenero(listaDeDados.get(i++));
-					//i++;
 					show.setArtista(listaDeDados.get(i++));
-					//i++;
 					show.setAnoLancamento(listaDeDados.get(i++));
-					//i++;
 					show.setCopias(Integer.parseInt(listaDeDados.get(i++)));
-					//i++; //inicio do tratamento de categoria
+
+					//inicio do tratamento de categoria
 					categoriaFile = listaDeDados.get(i++);
 					if(categoriaFile.toLowerCase().equals("lançamento")){
 						show.setCategoria(CategoriaDVD.Lancamento);
 					}else if(categoriaFile.toLowerCase().equals("acervo")){
 						show.setCategoria(CategoriaDVD.Acervo);	
 					}
-					//i++;
+					
 					listaDeShows.add(show);
 					i++; 
 				}

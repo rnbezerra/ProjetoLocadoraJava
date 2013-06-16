@@ -12,12 +12,10 @@ import br.com.locadora.model.HistoricoLocacao;
 import br.com.locadora.view.ViewCliente;
 
 public class ControllerCliente {
-	
-	public static void teste() {
-		realizarBusca("001001");
-	}
-	
 
+	/*
+	#### METODOS PUBLICOS ####
+	*/
 	public static void realizarBusca(String codigo) {
 		
 		Cliente cliente;

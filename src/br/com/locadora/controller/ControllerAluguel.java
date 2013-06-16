@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import br.com.locadora.dataIO.AluguelImportacao;
@@ -13,31 +12,23 @@ import br.com.locadora.dataIO.FilmeImportacao;
 import br.com.locadora.dataIO.ShowImportacao;
 import br.com.locadora.model.Cliente;
 import br.com.locadora.model.DVD;
+import br.com.locadora.model.DVD.TipoDVD;
+import br.com.locadora.model.Filme;
 import br.com.locadora.model.HistoricoLocacao;
+import br.com.locadora.model.Show;
 import br.com.locadora.view.ViewAluguel;
 
 
 
 
 public class ControllerAluguel {
-	/*
-	#### METODOS PÚBLICOS ####
-	*/
-	
+		
 	private static ArrayList<Cliente> listaGeralClientes = new ArrayList<Cliente>();
 	private static ArrayList<DVD> listaGeralDVDs = new ArrayList<DVD>();
 	
-	
-	public static void teste() {
-		HashMap<String, String> parameters = new HashMap<String, String>();
-		parameters.put("d", "009");
-		parameters.put("c", "003003");
-		parameters.put("t", "02/03/2005");
-		parameters.put("v", "2.00");
-						
-		realizaAluguel(parameters);
-		realizarDevolucao(parameters);
-	}
+	/*
+	#### METODOS PÚBLICOS ####
+	*/
 	
 	public static void realizaAluguel(HashMap<String, String> parameters) {
 		
@@ -78,9 +69,31 @@ public class ControllerAluguel {
 		}
 		
 
-		//Decremento do número de copias em função do aluguel e uma copia
-		dvd.setCopias(dvd.getCopias()-1);
-		//TODO salvar lista de dvds em arquivo
+		//Decremento do número de copias em função do aluguel
+		dvd.setCopias(dvd.getCopias()+1);
+		//salvar lista de dvds em arquivo
+		if(dvd.getTipo() == TipoDVD.Filme){
+			ArrayList<Filme> filmes = getFilmes();
+			for (Filme filme : filmes) {
+				if(filme.getCodigo().equals(dvd.getCodigo())){
+					filme.setCopias(dvd.getCopias());
+					//salvar filme
+					FilmeImportacao.salvarFilme(filmes);
+					break;
+				}
+			}
+		}
+		else{//tipo == show
+			ArrayList<Show> shows = getShows();
+			for (Show show : shows) {
+				if(show.getCodigo().equals(dvd.getCodigo())){
+					show.setCopias(dvd.getCopias());
+					//salvar show
+					ShowImportacao.salvarShow(shows);
+					break;
+				}
+			}
+		}
 		
 		//Adiciona novo alugal à lista de historico de locações
 		cliente.addHistoricoLocacao(new HistoricoLocacao(codigoDVD, dataAluguel, false));
@@ -113,7 +126,7 @@ public class ControllerAluguel {
 		//Carrega arquivo do aluguel de acordo com cliente e dvd
 		if(!AluguelImportacao.carregarAluguel(dvd.getCodigo(), cliente.getCodigo(), dataAluguel)){
 			ViewAluguel.dadoNaoEncontrado();
-						
+			return;
 		}				
 		
 		//calculo do preço de locação
@@ -124,12 +137,36 @@ public class ControllerAluguel {
 		
 
 		dvd.setCopias(dvd.getCopias()+1);
-		//TODO salvar lista de dvds em arquivo
+		//salvar lista de dvds em arquivo
+		if(dvd.getTipo() == TipoDVD.Filme){
+			ArrayList<Filme> filmes = getFilmes();
+			for (Filme filme : filmes) {
+				if(filme.getCodigo().equals(dvd.getCodigo())){
+					filme.setCopias(dvd.getCopias());
+					//salvar filme
+					FilmeImportacao.salvarFilme(filmes);
+					break;
+				}
+			}
+		}
+		else{//tipo == show
+			ArrayList<Show> shows = getShows();
+			for (Show show : shows) {
+				if(show.getCodigo().equals(dvd.getCodigo())){
+					show.setCopias(dvd.getCopias());
+					//salvar show
+					ShowImportacao.salvarShow(shows);
+					break;
+				}
+			}
+		}
+
+		String now = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
 		
 		//insere a data de devolução no historico de locações
 		cliente.getHistoricoLocacao()
 			.getByCodigoDvdDataLocacao(codigoDVD, dataAluguel)
-			.setDataLocacao(dataAluguel);
+			.setDataDevolucao(dataAluguel);
 		cliente.getHistoricoLocacao()
 			.getByCodigoDvdDataLocacao(codigoDVD, dataAluguel)
 			.setDevolvido(true);
@@ -137,17 +174,14 @@ public class ControllerAluguel {
 		//salva lista de clientes em arquivo
 		ClienteImportacao.salvarClientes(listaGeralClientes);
 		
-		Date now = Calendar.getInstance().getTime();
 		
-		ViewAluguel.mostraAluguelDevolvido(cliente, dvd, saldo, dataAluguel, new SimpleDateFormat("dd/MM/yyyy").format(now));
+		ViewAluguel.mostraAluguelDevolvido(cliente, dvd, saldo, dataAluguel, now);
 		
 	}
 	/*
 	#### METODOS PRIVADOS ####
 	*/
-	private static Cliente getCliente(String codigo) {
-//		ArrayList<Cliente> lista = new ArrayList<Cliente>();
-		
+	private static Cliente getCliente(String codigo) {		
 		listaGeralClientes = ClienteImportacao.listaDeClientes();
 			
 		for (Cliente cliente : listaGeralClientes) {
@@ -167,6 +201,14 @@ public class ControllerAluguel {
 		}
 		
 		return null;
+	}
+	
+	private static ArrayList<Filme> getFilmes() {
+		return FilmeImportacao.listaDeFilmes();
+	}
+	
+	private static ArrayList<Show> getShows() {
+		return ShowImportacao.listaDeShows();
 	}
 	
 	

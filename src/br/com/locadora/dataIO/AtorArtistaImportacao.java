@@ -12,7 +12,6 @@ import br.com.locadora.model.Personalidade.Sexo;
 
 public class AtorArtistaImportacao{
 
-	  	
 	public static ArrayList<Artista> listaDeAtoresArtistas(){
 		ArrayList<Artista> listaDeArtistas = new ArrayList<Artista>();
 		ArrayList<String> listaDeDados = new ArrayList<String>();

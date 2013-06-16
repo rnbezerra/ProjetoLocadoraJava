@@ -24,7 +24,6 @@ public class DiretorImportacao {
 	
 	
 	public static ArrayList<Diretor> listaDeDiretores(){
-	//public static void main(String args[]){
 		/*Declaração das variaveis*/
 		
 		ArrayList<Diretor> listaDeDiretores = new ArrayList<Diretor>();
