@@ -85,7 +85,8 @@ public class Cliente implements Serializable{
 	}
 
 	public double getSaldo() {
-		return saldo;
+		if(String.valueOf(this.saldo).equals(null)) return 0;
+		else return saldo;
 	}
 
 	public void setSaldo(double saldo) {

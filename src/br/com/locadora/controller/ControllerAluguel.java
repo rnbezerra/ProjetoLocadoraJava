@@ -63,14 +63,13 @@ public class ControllerAluguel {
 		}  
 		
 		//calculo do preço de locação
-		double saldo = 0;
 		if(!Double.isNaN(valorPago)){
-			saldo = valorPago - dvd.getPrecoLocacao(cliente.getStatus());
+			cliente.setSaldo(cliente.getSaldo() + valorPago - dvd.getPrecoLocacao(cliente.getStatus()));
 		}
 		
 
 		//Decremento do número de copias em função do aluguel
-		dvd.setCopias(dvd.getCopias()+1);
+		dvd.setCopias(dvd.getCopias()-1);
 		//salvar lista de dvds em arquivo
 		if(dvd.getTipo() == TipoDVD.Filme){
 			ArrayList<Filme> filmes = getFilmes();
@@ -97,12 +96,12 @@ public class ControllerAluguel {
 		
 		//Adiciona novo alugal à lista de historico de locações
 		cliente.addHistoricoLocacao(new HistoricoLocacao(codigoDVD, dataAluguel, false));
-		ClienteImportacao.salvarClientes(listaGeralClientes);
 
 		//salva lista de clientes em arquivo
-		AluguelImportacao.salvarAluguel(dvd, cliente, dataAluguel, saldo);
+		ClienteImportacao.salvarClientes(listaGeralClientes);
+		AluguelImportacao.salvarAluguel(dvd, cliente, dataAluguel, cliente.getSaldo());
 		
-		ViewAluguel.mostraAluguelRealizado(cliente, dvd, saldo, new SimpleDateFormat("dd/MM/yyyy").format(dataDevolucao.getTime()));
+		ViewAluguel.mostraAluguelRealizado(cliente, dvd, cliente.getSaldo(), new SimpleDateFormat("dd/MM/yyyy").format(dataDevolucao.getTime()));
 		
 	}
 	
@@ -129,10 +128,9 @@ public class ControllerAluguel {
 			return;
 		}				
 		
-		//calculo do preço de locação
-		double saldo = 0;
+		//calculo do saldo
 		if(!Double.isNaN(valorPago)){
-			saldo = valorPago + AluguelImportacao.getValor();
+			cliente.setSaldo(cliente.getSaldo() + valorPago);
 		}
 		
 
@@ -174,8 +172,10 @@ public class ControllerAluguel {
 		//salva lista de clientes em arquivo
 		ClienteImportacao.salvarClientes(listaGeralClientes);
 		
+		//deleta arquivo de aluguel
+		AluguelImportacao.removerAluguel(dvd.getCodigo(), cliente.getCodigo(), dataAluguel);
 		
-		ViewAluguel.mostraAluguelDevolvido(cliente, dvd, saldo, dataAluguel, now);
+		ViewAluguel.mostraAluguelDevolvido(cliente, dvd, cliente.getSaldo(), dataAluguel, now);
 		
 	}
 	/*

@@ -1,5 +1,6 @@
 package br.com.locadora.principal;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.HashMap;
 
 import br.com.locadora.controller.ControllerAluguel;
@@ -7,8 +8,11 @@ import br.com.locadora.controller.ControllerCliente;
 import br.com.locadora.controller.ControllerDVD;
 
 public class Main {
-		
+
+
 	public static void main(String[] args) {
+			
+		
 
 		HashMap<String, String> parameters = parseArrayToHashMap(args);
 		

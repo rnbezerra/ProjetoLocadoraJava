@@ -1,5 +1,7 @@
 package br.com.locadora.dataIO;
 
+import java.io.File;
+
 import br.com.locadora.model.AluguelSerializable;
 import br.com.locadora.model.Cliente;
 import br.com.locadora.model.DVD;
@@ -39,25 +41,34 @@ public class AluguelImportacao extends Serializer<AluguelSerializable>{
 
 		AluguelSerializable serializable = new AluguelSerializable(cliente.getCodigo(), dvd.getCodigo(), dataAluguel, valorPago);
 				
-		return new AluguelImportacao().using(serializable).saveFileWithName(filename);
+		return getInstance().using(serializable).saveFileWithName(filename);
 		
 	}
 
 	public static boolean carregarAluguel(String codigoDVD, String codigoCliente, String dataAluguel) {
 		String filename = String.format("%s_%s_%s", codigoCliente, codigoDVD, dataAluguel.replace("/", ""));
 		
+		if(new File(getInstance().using(new AluguelSerializable()).getFileName(filename)).exists()){
 		
-		AluguelSerializable aluguel = getInstance().using(new AluguelSerializable()).loadFileWithName(filename).getObject();
-		boolean success = false;
-		if((success = (aluguel != null))){			
-			codigoCliente = aluguel.getCodigoCliente();
-			codigoDvd = aluguel.getCodigoDVD();
-			dataAluguel = aluguel.getDataLocacao();
-			valor = aluguel.getValorPago();
+			AluguelSerializable aluguel = getInstance().using(new AluguelSerializable()).loadFileWithName(filename).getObject();
+			boolean success = false;
+			if((success = (aluguel != null))){			
+				codigoCliente = aluguel.getCodigoCliente();
+				codigoDvd = aluguel.getCodigoDVD();
+				dataAluguel = aluguel.getDataLocacao();
+				valor = aluguel.getValorPago();
+			}
+			
+			return success;
 		}
-		
-		return success;
+		else return false;
 
+	}
+
+	public static void removerAluguel(String codigoDVD, String codigoCliente, String dataAluguel) {
+		String filename = String.format("%s_%s_%s", codigoCliente, codigoDVD, dataAluguel.replace("/", ""));
+		
+		new File(getInstance().using(new AluguelSerializable()).getFileName(filename)).delete();
 	}
 	
 
