@@ -57,7 +57,14 @@ public class Main {
 		
 		for(String str : allParamsArray){		
 			if(str.split(":").length >= 2){
-				hashmap.put(str.split(":")[0], str.split(":")[1]);
+				StringBuilder valor = new StringBuilder();
+				
+				for(int i = 1; i < str.split(":").length; i++)
+					valor.append(str.split(":")[i]).append(" ");
+				
+				valor.deleteCharAt(valor.length()-1);
+				
+				hashmap.put(str.split(":")[0], valor.toString());
 			}
 		}
 		

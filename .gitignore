@@ -15,7 +15,7 @@
 #.settings/
 #.loadpath
 *.bat
-
+SERIALIZADO/
 
 # External tool builders
 .externalToolBuilders/
