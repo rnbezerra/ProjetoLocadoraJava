@@ -55,8 +55,9 @@ public class ControllerDVD {
 		
 		
 		String keyWord = "";
-		if(parameters.containsKey("p")) keyWord = parameters.get("p").toLowerCase(); 
-
+		if(parameters.containsKey("p")) keyWord = parameters.get("p").toLowerCase();
+		else return;
+		
 		
 		for (DVD dvd : lista) {
 

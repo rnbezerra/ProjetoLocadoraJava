@@ -118,9 +118,9 @@ public class DVD implements Serializable{
 	
 	public int getDiasParaLocacao() {
 		switch (this.categoria) {
-		case Acervo: return 2;
+		case Acervo: return 3;
 		case Lancamento: 
-		default: return 3;
+		default: return 2;
 		}
 	}
 	
