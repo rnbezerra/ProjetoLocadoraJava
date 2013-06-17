@@ -56,7 +56,7 @@ public class ViewDVD {
 		mensagem.append("show;\n")
 				.append(String.format("%s;%s;%s;%s;\n", show.getCodigo(), show.getTitulo(), show.getArea(), show.getGenero()))
 				.append(String.format("%s;\n", show.getFaixas() ))
-				.append(String.format("%s;", show.getArtista()))
+				.append(String.format("%s;\n", show.getArtista()))
 				.append(String.format("%s;%s;\n", show.getAnoLancamento(), show.getCategoriaAsString()))
 				.append(String.format("%d;", show.getCopias()));
 		

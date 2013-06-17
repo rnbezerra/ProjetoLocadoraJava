@@ -39,10 +39,17 @@ public class ControllerAluguel {
 			   codigoCliente = parameters.get("c"),
 			   dataAluguel = parameters.get("t");
 		double valorPago =  Double.parseDouble(parameters.get("v").replace(",", "."));
-		
+				
 		//busca cliente e dvd
 		if((cliente = getCliente(codigoCliente)) == null || (dvd = getDVD(codigoDVD)) == null){
 			ViewAluguel.dadoNaoEncontrado();
+			return;
+		}
+		
+		//Verifica se o filme já foi alugado pra esse cliente
+		if(cliente.getHistoricoLocacao().getByCodigoDvdDataLocacao(codigoDVD, dataAluguel) != null){
+			//já existe um aluguel em aberto para esse cliente
+			ViewAluguel.filmeJaAlugado();
 			return;
 		}
 		
@@ -126,7 +133,7 @@ public class ControllerAluguel {
 		if(!AluguelImportacao.carregarAluguel(dvd.getCodigo(), cliente.getCodigo(), dataAluguel)){
 			ViewAluguel.aluguelNaoEncontrado();
 			return;
-		}				
+		}
 		
 		//calculo do saldo
 		if(!Double.isNaN(valorPago)){

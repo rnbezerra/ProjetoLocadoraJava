@@ -64,4 +64,7 @@ public class ViewAluguel {
 		System.out.println("Não há cópias disponíveis do DVD");
 	}
 
+	public static void filmeJaAlugado() {
+		System.out.println("Esse filme já foi alugado por esse cliente.");
+	}
 }
